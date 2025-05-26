@@ -1,3 +1,5 @@
+class_name Boid
+
 extends Node2D
 
 # px/s

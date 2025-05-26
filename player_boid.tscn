@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://tsoxv0jmsj5u"]
+
+[ext_resource type="PackedScene" uid="uid://bs3gm48f583s0" path="res://boid.tscn" id="1_hq66w"]
+[ext_resource type="Script" uid="uid://dgmejgi7ulemw" path="res://ingame_boid.gd" id="2_54exh"]
+
+[node name="PlayerBoid" type="Node2D"]
+
+[node name="Boid" parent="." node_paths=PackedStringArray("collider") instance=ExtResource("1_hq66w")]
+script = ExtResource("2_54exh")
+is_main_boid = true
+collider = NodePath("Area2D")
+lose_margin = 200.0
+WALL_AVOIDANCE = 0.0
+
+[node name="Polygon2D" parent="Boid/Area2D/Node2D" index="0"]
+color = Color(0.670166, 0.951125, 0.99695, 1)
+
+[editable path="Boid"]
+[editable path="Boid/Area2D/Node2D"]

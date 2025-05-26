@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ghr5vcnv1pue"]
+[gd_scene load_steps=7 format=3 uid="uid://ble8cqc0rjecp"]
 
-[ext_resource type="Script" uid="uid://8th1ioo5akc0" path="res://scripts/start_controller.gd" id="1_n0qsc"]
-[ext_resource type="PackedScene" uid="uid://xrb2j0f4etlf" path="res://movable_boid.tscn" id="2_dilhk"]
-[ext_resource type="Script" uid="uid://cbr8ffbxsfbit" path="res://scripts/boids_controller.gd" id="3_3mhv4"]
-[ext_resource type="PackedScene" uid="uid://tsoxv0jmsj5u" path="res://player_boid.tscn" id="3_syshm"]
-[ext_resource type="PackedScene" uid="uid://c7vabsf7wmd2c" path="res://Star.tscn" id="4_rf6l5"]
+[ext_resource type="Script" uid="uid://8th1ioo5akc0" path="res://scripts/start_controller.gd" id="1_bcgyv"]
+[ext_resource type="PackedScene" uid="uid://xrb2j0f4etlf" path="res://movable_boid.tscn" id="2_fbld2"]
+[ext_resource type="PackedScene" uid="uid://tsoxv0jmsj5u" path="res://player_boid.tscn" id="3_s275v"]
+[ext_resource type="Script" uid="uid://cbr8ffbxsfbit" path="res://scripts/boids_controller.gd" id="4_pml6m"]
+[ext_resource type="PackedScene" uid="uid://c7vabsf7wmd2c" path="res://Star.tscn" id="5_vltsr"]
 
 [sub_resource type="SystemFont" id="SystemFont_3mhv4"]
 font_names = PackedStringArray("Arial")
@@ -19,14 +19,13 @@ offset_bottom = 80.0
 theme_override_fonts/font = SubResource("SystemFont_3mhv4")
 theme_override_font_sizes/font_size = 32
 text = "Start"
-script = ExtResource("1_n0qsc")
+script = ExtResource("1_bcgyv")
 moving_objects_parent = NodePath("../Moving_objects")
 
 [node name="Moving_objects" type="Node2D" parent="."]
 
-[node name="MovableBoid" parent="Moving_objects" instance=ExtResource("2_dilhk")]
-can_rotate = false
-object_to_relace_with = ExtResource("3_syshm")
+[node name="MovableBoid" parent="Moving_objects" instance=ExtResource("2_fbld2")]
+object_to_relace_with = ExtResource("3_s275v")
 
 [node name="ColorRect" parent="Moving_objects/MovableBoid" index="0"]
 offset_left = 30.0
@@ -44,10 +43,13 @@ offset_bottom = 140.0
 color = Color(0.670588, 0.952941, 0.996078, 1)
 
 [node name="boid_parent" type="Node" parent="."]
-script = ExtResource("3_3mhv4")
+script = ExtResource("4_pml6m")
 
-[node name="Star" parent="." instance=ExtResource("4_rf6l5")]
+[node name="Star" parent="." instance=ExtResource("5_vltsr")]
 position = Vector2(1827, 549)
+
+[node name="Star2" parent="." instance=ExtResource("5_vltsr")]
+position = Vector2(1123, 695)
 
 [editable path="Moving_objects/MovableBoid"]
 [editable path="Moving_objects/MovableBoid/ReferenceRect/Node2D/Node2D"]

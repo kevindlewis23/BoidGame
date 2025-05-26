@@ -1,6 +1,5 @@
 extends BaseButton
 
-@export var boid_parent : BoidsController
 @export var moving_objects_parent : Node2D
 
 func _ready():
@@ -19,7 +18,7 @@ func start():
 		new_obj.global_position = g_pos
 		new_obj.global_rotation = g_rot
 		# Add this object to the scene
-		boid_parent.add_child(new_obj)
+		BoidsController.Instance.add_child(new_obj)
 	moving_objects_parent.hide()
 	hide()
-	boid_parent.start()
+	BoidsController.Instance.start()
