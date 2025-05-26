@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bs3gm48f583s0"]
+
+[ext_resource type="Script" uid="uid://cg0jrbhtb3wj2" path="res://scripts/boid.gd" id="1_xur1n"]
+
+[node name="Boid" type="Node2D" groups=["boids"]]
+script = ExtResource("1_xur1n")
+WALL_AVOIDANCE = 0.0
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-30, -30, 30, 0, -30, 30, -10, 0)
