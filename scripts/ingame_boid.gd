@@ -13,6 +13,7 @@ var star_count = 0
 var must_be_in_area : Rect2
 
 func _ready():
+	super._ready()
 	collider.area_entered.connect(collide)
 	star_count = get_tree().get_nodes_in_group("stars").size()
 	must_be_in_area = Rect2(SCENE_LEFT -lose_margin, SCENE_TOP-lose_margin,
@@ -29,8 +30,7 @@ func _physics_process(_delta : float):
 	# Lose if you are too far out of the bounds
 	if is_main_boid and not must_be_in_area.has_point(global_position):
 		lose("You swam out of the map!!")
-	
-	
+
 
 func collide_with_star(star : Node2D):
 	if is_main_boid:
@@ -48,3 +48,4 @@ func lose(reason : String):
 	print("You lose")
 	print(reason)
 	BoidsController.Instance.running = false
+	StartController.Instance.reset()

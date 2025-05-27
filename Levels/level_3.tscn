@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmk8byn5em0u5"]
+
+[ext_resource type="Script" uid="uid://8th1ioo5akc0" path="res://scripts/start_controller.gd" id="1_padch"]
+[ext_resource type="PackedScene" uid="uid://xrb2j0f4etlf" path="res://movable_boid.tscn" id="2_uwxw1"]
+[ext_resource type="PackedScene" uid="uid://cf2m6x1kkit2d" path="res://player_boid.tscn" id="3_ay5qi"]
+[ext_resource type="Script" uid="uid://cbr8ffbxsfbit" path="res://scripts/boids_controller.gd" id="4_fa81k"]
+[ext_resource type="PackedScene" uid="uid://c7vabsf7wmd2c" path="res://Star.tscn" id="5_ck3gp"]
+
+[sub_resource type="SystemFont" id="SystemFont_3mhv4"]
+font_names = PackedStringArray("Arial")
+
+[node name="Level_3" type="Node2D"]
+
+[node name="Start_button" type="Button" parent="." node_paths=PackedStringArray("moving_objects_parent")]
+offset_left = 1752.0
+offset_top = 15.0
+offset_right = 1894.0
+offset_bottom = 80.0
+theme_override_fonts/font = SubResource("SystemFont_3mhv4")
+theme_override_font_sizes/font_size = 32
+text = "Start"
+script = ExtResource("1_padch")
+moving_objects_parent = NodePath("../Moving_objects")
+
+[node name="Moving_objects" type="Node2D" parent="."]
+
+[node name="MovableBoid" parent="Moving_objects" instance=ExtResource("2_uwxw1")]
+object_to_relace_with = ExtResource("3_ay5qi")
+
+[node name="ReferenceRect" parent="Moving_objects/MovableBoid" index="0"]
+offset_left = 70.0
+offset_right = 140.0
+
+[node name="Polygon2D" parent="Moving_objects/MovableBoid/ReferenceRect/Node2D/Node2D" index="0"]
+color = Color(0.670588, 0.952941, 0.996078, 1)
+
+[node name="MovableBoid2" parent="Moving_objects" instance=ExtResource("2_uwxw1")]
+position = Vector2(726, 895)
+can_rotate = false
+can_move = false
+
+[node name="Node2D" parent="Moving_objects/MovableBoid2/ReferenceRect" index="0"]
+rotation = -1.5708
+
+[node name="boid_parent" type="Node" parent="."]
+script = ExtResource("4_fa81k")
+
+[node name="Star" parent="." instance=ExtResource("5_ck3gp")]
+position = Vector2(1827, 549)
+
+[editable path="Moving_objects/MovableBoid"]
+[editable path="Moving_objects/MovableBoid/ReferenceRect/Node2D/Node2D"]
+[editable path="Moving_objects/MovableBoid2"]

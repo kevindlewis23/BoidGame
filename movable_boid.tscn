@@ -2,29 +2,21 @@
 
 [ext_resource type="Script" uid="uid://ds3o004kiole0" path="res://scripts/movable_thing.gd" id="1_68sj6"]
 [ext_resource type="Script" uid="uid://urf4wm3aun5y" path="res://scripts/bounding_circle.gd" id="2_77yiw"]
-[ext_resource type="PackedScene" uid="uid://bs3gm48f583s0" path="res://boid.tscn" id="2_u5emm"]
+[ext_resource type="PackedScene" uid="uid://tk76pjnvmxu8" path="res://non_player_boid.tscn" id="2_jtx3i"]
 [ext_resource type="PackedScene" uid="uid://dth47xdgohkja" path="res://boid_sprite.tscn" id="4_1halx"]
 
 [node name="MovableBoid" type="Node2D" node_paths=PackedStringArray("bounding_box", "moving_object_bounding_box", "object_to_replace_on_start") groups=["movable_things"]]
 script = ExtResource("1_68sj6")
-bounding_box = NodePath("ColorRect")
+bounding_box = NodePath("Polygon2D")
 moving_object_bounding_box = NodePath("ReferenceRect")
 object_to_replace_on_start = NodePath("ReferenceRect/Node2D/Node2D")
-object_to_relace_with = ExtResource("2_u5emm")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-z_index = -1
-offset_left = 102.0
-offset_top = 25.0
-offset_right = 289.0
-offset_bottom = 855.0
-color = Color(1, 1, 1, 0.121569)
+object_to_relace_with = ExtResource("2_jtx3i")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="." node_paths=PackedStringArray("child_rotator")]
-offset_left = 135.0
-offset_top = 94.0
-offset_right = 205.0
-offset_bottom = 164.0
+offset_left = 71.0
+offset_top = 70.0
+offset_right = 141.0
+offset_bottom = 140.0
 script = ExtResource("2_77yiw")
 child_rotator = NodePath("Node2D")
 
@@ -32,3 +24,8 @@ child_rotator = NodePath("Node2D")
 position = Vector2(35, 35)
 
 [node name="Node2D" parent="ReferenceRect/Node2D" instance=ExtResource("4_1halx")]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(30, 30)
+color = Color(1, 1, 1, 0.121569)
+polygon = PackedVector2Array(0, 0, 150, 0, 150, 1020, 0, 1020)

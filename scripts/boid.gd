@@ -39,8 +39,8 @@ var next_velocity : Vector2 = Vector2()
 var last_velocity : Vector2 = Vector2()
 
 # For lerping between frames
-var next_position = position
-var next_rotation = rotation
+var next_position
+var next_rotation
 
 
 func _ready():
@@ -53,7 +53,7 @@ func calc_next_position_and_angle(delta: float) -> void:
 	last_velocity = next_velocity
 	next_position = position + next_velocity * delta
 	var target_angle = next_velocity.angle()
-	# Get the last rotation, but at an angle that's close to target_angle for averaging purposesvar last_rotation = target_angle + wrapf(rotation - target_angle, -PI, PI)
+	
 	next_rotation = lerp_angle(rotation, target_angle, 1-VISUAL_ANGULAR_MOMENTUM)
 
 # Keeping this separate from get_next_position_angle_angle so that I can 
@@ -85,7 +85,7 @@ func get_close_elements(elements : Array, radius : float) -> Array:
 	for element in elements:
 		if element == self:
 			continue
-		var distance_sqr = position.distance_squared_to(element.position)
+		var distance_sqr = position.distance_squared_to(element.global_position)
 		if distance_sqr < sqr_radius:
 			elements_in_radius.append(element)
 	return elements_in_radius
@@ -98,9 +98,9 @@ func separate(other_boids : Array, separation_distance: float) -> Vector2:
 	var target = Vector2()
 	for boid in other_boids:
 		# Steering force is higher when you are closer to something
-		var dist = maxf(position.distance_to(boid.position), .0001)
+		var dist = maxf(position.distance_to(boid.global_position), .0001)
 		if dist < separation_distance:
-			target += (position - boid.position) / dist
+			target += (position - boid.global_position) / dist
 	return target * SEPARATION_BASE_FACTOR
 	
 
@@ -138,7 +138,7 @@ func get_center(boids) -> Vector2:
 		return position
 	var center = Vector2()
 	for boid in boids:
-		center += boid.position
+		center += boid.global_position
 	center /= boids.size()
 	return center
 

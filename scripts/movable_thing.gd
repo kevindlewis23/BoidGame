@@ -3,7 +3,7 @@ extends Node
 
 @export var can_rotate : bool = true
 @export var can_move : bool = true
-@export var bounding_box : ColorRect
+@export var bounding_box : Polygon2D
 @export var moving_object_bounding_box : BoundingArea
 @export var bounding_box_hover_color : Color = Color(1, 1, 1, .02)
 @export var bounding_box_base_color : Color = Color.TRANSPARENT
@@ -26,11 +26,17 @@ var look_at_segment : Line2D = null
 
 func _ready() -> void:
 	viewport = get_viewport()
-	bounding_box_aabb = bounding_box.get_global_rect()
-	# Connect the moving_object_bounding_box's mouse_enter to this script
+	bounding_box_aabb = get_rect_bounds(bounding_box)
 	moving_object_bounding_box.mouse_entered.connect(set_hovered)
 	moving_object_bounding_box.mouse_exited.connect(set_unhovered)
 	set_unhovered()
+
+func get_rect_bounds(box : Polygon2D):
+	var aabb = Rect2(box.polygon[0], Vector2.ZERO)
+	for point in box.polygon:
+		aabb = aabb.merge(Rect2(point, Vector2.ZERO))
+	aabb.position += box.position
+	return aabb
 
 func set_hovered():
 	if can_move or can_rotate:
