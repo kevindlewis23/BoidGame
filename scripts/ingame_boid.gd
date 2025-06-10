@@ -15,6 +15,7 @@ var must_be_in_area : Rect2
 func _ready():
 	super._ready()
 	collider.area_entered.connect(collide)
+	
 	star_count = get_tree().get_nodes_in_group("stars").size()
 	must_be_in_area = Rect2(SCENE_LEFT -lose_margin, SCENE_TOP-lose_margin,
 							SCENE_RIGHT - SCENE_LEFT + 2 * lose_margin,
@@ -22,8 +23,10 @@ func _ready():
 	
 func collide(other_collider : Area2D):
 	var other_object = other_collider.get_parent()
-	if other_object.is_in_group("Star"):
+	if other_object.is_in_group("stars"):
 		collide_with_star(other_object)
+	elif other_object.is_in_group("zappers"):
+		collide_with_zapper(other_object)
 		
 
 func _physics_process(_delta : float):
@@ -31,6 +34,9 @@ func _physics_process(_delta : float):
 	if is_main_boid and not must_be_in_area.has_point(global_position):
 		lose("You swam out of the map!!")
 
+func _draw() -> void:
+	if is_main_boid:
+		draw_circle(Vector2.ZERO, VISION_RADIUS, Color(1,1,1,.015))
 
 func collide_with_star(star : Node2D):
 	if is_main_boid:
@@ -39,13 +45,16 @@ func collide_with_star(star : Node2D):
 		if star_count <= 0:
 			win()
 
+func collide_with_zapper(zapper : Node2D):
+	lose("You got zapped!")
 
 func win():
-	print("you win!!!!!!!")
+	print("You win!!!!!!!")
 	BoidsController.Instance.running = false
+	StartController.Instance.leave_to_home.call_deferred()
 
 func lose(reason : String):
 	print("You lose")
 	print(reason)
 	BoidsController.Instance.running = false
-	StartController.Instance.reset()
+	StartController.Instance.reset.call_deferred()

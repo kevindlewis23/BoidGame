@@ -22,6 +22,9 @@ func rotate_to(target_rotation: float, outer_bounding_box: Rect2) -> bool:
 		rotation = old_rotation
 		return false
 
+func get_object_rotation() -> float:
+	""" Get the current rotation of this node """
+	return rotation
 
 func get_center() -> Vector2:
 	var obj_box = aabb_of_rotated_rect()

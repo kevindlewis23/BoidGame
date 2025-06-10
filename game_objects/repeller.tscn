@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bny816xqmk00k"]
+
+[ext_resource type="PackedScene" uid="uid://cx7ofsplb5ohi" path="res://sprites/repeller_sprite.tscn" id="1_h803l"]
+
+[node name="Repeller" type="Node2D" groups=["obstacles"]]
+
+[node name="Node2D" parent="." instance=ExtResource("1_h803l")]

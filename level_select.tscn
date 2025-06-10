@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://4440xs14saj6"]
+
+[ext_resource type="Script" uid="uid://4pu37jx84f3n" path="res://scripts/level_selector.gd" id="1_05pd3"]
+[ext_resource type="PackedScene" uid="uid://c7dvc270m8scp" path="res://boids.tscn" id="10_05pd3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vomi7"]
+bg_color = Color(0.0603284, 0.160246, 0.538213, 0.501961)
+
+[sub_resource type="Theme" id="Theme_vomi7"]
+default_font_size = 30
+
+[node name="Control" type="Control" node_paths=PackedStringArray("start_button", "option_select")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_05pd3")
+start_button = NodePath("Panel/Button")
+option_select = NodePath("Panel/OptionButton")
+num_levels = 11
+
+[node name="Boids" parent="." instance=ExtResource("10_05pd3")]
+
+[node name="BoidsOverlay" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1948.0
+offset_bottom = 1129.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vomi7")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 672.0
+offset_top = 210.0
+offset_right = 1316.0
+offset_bottom = 724.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 167.0
+offset_top = 81.0
+offset_right = 500.0
+offset_bottom = 164.0
+theme_override_font_sizes/normal_font_size = 48
+text = "Choose Level"
+
+[node name="OptionButton" type="OptionButton" parent="Panel"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 194.0
+offset_right = 463.0
+offset_bottom = 269.0
+theme = SubResource("Theme_vomi7")
+theme_override_font_sizes/font_size = 48
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 177.0
+offset_top = 310.0
+offset_right = 478.0
+offset_bottom = 392.0
+theme_override_font_sizes/font_size = 48
+text = "Start"

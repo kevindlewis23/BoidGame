@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://ds3o004kiole0" path="res://scripts/movable_thing.gd" id="1_68sj6"]
 [ext_resource type="Script" uid="uid://urf4wm3aun5y" path="res://scripts/bounding_circle.gd" id="2_77yiw"]
-[ext_resource type="PackedScene" uid="uid://tk76pjnvmxu8" path="res://non_player_boid.tscn" id="2_jtx3i"]
-[ext_resource type="PackedScene" uid="uid://dth47xdgohkja" path="res://boid_sprite.tscn" id="4_1halx"]
+[ext_resource type="PackedScene" uid="uid://tk76pjnvmxu8" path="res://game_objects/non_player_boid.tscn" id="2_jtx3i"]
+[ext_resource type="PackedScene" uid="uid://dth47xdgohkja" path="res://sprites/boid_sprite.tscn" id="4_1halx"]
 
 [node name="MovableBoid" type="Node2D" node_paths=PackedStringArray("bounding_box", "moving_object_bounding_box", "object_to_replace_on_start") groups=["movable_things"]]
 script = ExtResource("1_68sj6")

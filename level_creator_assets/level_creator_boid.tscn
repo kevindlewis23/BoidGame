@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://mbrqswn47dok"]
+
+[ext_resource type="Script" uid="uid://dcojf2ukq6jje" path="res://scripts/level_creator_thing.gd" id="1_bduf6"]
+[ext_resource type="PackedScene" uid="uid://tk76pjnvmxu8" path="res://game_objects/non_player_boid.tscn" id="2_f0ibq"]
+[ext_resource type="Script" uid="uid://urf4wm3aun5y" path="res://scripts/bounding_circle.gd" id="3_0fyrp"]
+[ext_resource type="PackedScene" uid="uid://dth47xdgohkja" path="res://sprites/boid_sprite.tscn" id="4_20wvc"]
+[ext_resource type="PackedScene" uid="uid://cxwmn0xrg7jro" path="res://level_creator_assets/edit_panel.tscn" id="5_xm58j"]
+
+[node name="MovableBoid" type="Node2D" node_paths=PackedStringArray("control_box", "bounding_box", "moving_object_bounding_box", "object_to_replace_on_start") groups=["movable_things"]]
+script = ExtResource("1_bduf6")
+control_box = NodePath("Control")
+bounding_box = NodePath("Polygon2D")
+moving_object_bounding_box = NodePath("ReferenceRect")
+object_to_replace_on_start = NodePath("ReferenceRect/Node2D/Node2D")
+object_to_relace_with = ExtResource("2_f0ibq")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="." node_paths=PackedStringArray("child_rotator")]
+offset_left = -34.0
+offset_top = -34.0
+offset_right = 36.0
+offset_bottom = 36.0
+script = ExtResource("3_0fyrp")
+child_rotator = NodePath("Node2D")
+
+[node name="Node2D" type="Node2D" parent="ReferenceRect"]
+position = Vector2(35, 35)
+
+[node name="Node2D" parent="ReferenceRect/Node2D" instance=ExtResource("4_20wvc")]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0.121569)
+polygon = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+
+[node name="Control" parent="." node_paths=PackedStringArray("bounding_box", "object", "connected_thing") instance=ExtResource("5_xm58j")]
+bounding_box = NodePath("../Polygon2D")
+object = NodePath("../ReferenceRect")
+connected_thing = NodePath("..")

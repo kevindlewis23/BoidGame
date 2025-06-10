@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BoidGame"
-run/main_scene="uid://c7dvc270m8scp"
+run/main_scene="uid://4440xs14saj6"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
@@ -31,6 +31,11 @@ boids=""
 obstacles=""
 movable_things=""
 stars=""
+zappers=""
+
+[gui]
+
+timers/tooltip_delay_sec=0.0
 
 [input]
 
@@ -49,3 +54,4 @@ left_click={
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

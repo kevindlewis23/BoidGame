@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://djjr5ohpw8638"]
+
+[ext_resource type="Script" uid="uid://obgdhv1biunt" path="res://scripts/zapper.gd" id="1_3najk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r4jaa"]
+size = Vector2(5, 400)
+
+[node name="Zapper" type="Node2D" node_paths=PackedStringArray("electiricy", "collision_shape") groups=["zappers"]]
+script = ExtResource("1_3najk")
+electiricy = NodePath("Electricity")
+collision_shape = NodePath("Electricity/CollisionShape2D")
+
+[node name="Boundaries" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Boundaries"]
+position = Vector2(0, 200)
+color = Color(0.108519, 0.453279, 0.893816, 1)
+polygon = PackedVector2Array(-5, -5, 5, -5, 5, 5, -5, 5)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Boundaries"]
+position = Vector2(0, -200)
+color = Color(0.108519, 0.453279, 0.893816, 1)
+polygon = PackedVector2Array(-5, -5, 5, -5, 5, 5, -5, 5)
+
+[node name="Electricity" type="Area2D" parent="."]
+collision_layer = 4
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Electricity"]
+shape = SubResource("RectangleShape2D_r4jaa")
+
+[node name="Line2D" type="Line2D" parent="Electricity"]
+points = PackedVector2Array(0, -200, 0, 200)
+width = 5.0
+default_color = Color(1, 0.988235, 0, 1)

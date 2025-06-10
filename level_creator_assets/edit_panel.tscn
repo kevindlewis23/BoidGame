@@ -1,0 +1,143 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxwmn0xrg7jro"]
+
+[ext_resource type="Theme" uid="uid://b8aj6i3o1wj5g" path="res://level_creator_assets/edit_panel.tres" id="1_2u8hn"]
+[ext_resource type="Script" uid="uid://c1eb0utvv7nb1" path="res://scripts/level_creator_control_box.gd" id="1_xmuhi"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("can_move_checkbox", "can_rotate_checkbox", "x_position", "y_position", "rotation_box", "rotation_container", "box_left", "box_right", "box_bottom", "box_top", "bounding_box_tab", "tab_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xmuhi")
+can_move_checkbox = NodePath("PanelContainer/TabContainer/Object/vbox/HBoxContainer/CheckBox")
+can_rotate_checkbox = NodePath("PanelContainer/TabContainer/Object/vbox/HBoxContainer/CheckBox2")
+x_position = NodePath("PanelContainer/TabContainer/Object/vbox/HBoxContainer2/SpinBox")
+y_position = NodePath("PanelContainer/TabContainer/Object/vbox/HBoxContainer2/SpinBox2")
+rotation_box = NodePath("PanelContainer/TabContainer/Object/vbox/HBoxContainer3/SpinBox")
+rotation_container = NodePath("PanelContainer/TabContainer/Object/vbox/HBoxContainer3")
+box_left = NodePath("PanelContainer/TabContainer/BoundingBox/vbox/HBoxContainer2/SpinBox")
+box_right = NodePath("PanelContainer/TabContainer/BoundingBox/vbox/HBoxContainer2/SpinBox2")
+box_bottom = NodePath("PanelContainer/TabContainer/BoundingBox/vbox/HBoxContainer3/SpinBox2")
+box_top = NodePath("PanelContainer/TabContainer/BoundingBox/vbox/HBoxContainer3/SpinBox")
+bounding_box_tab = NodePath("PanelContainer/TabContainer/BoundingBox")
+tab_container = NodePath("PanelContainer/TabContainer")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 57.0
+offset_bottom = 63.0
+theme = ExtResource("1_2u8hn")
+
+[node name="TabContainer" type="TabContainer" parent="PanelContainer"]
+layout_mode = 2
+current_tab = 0
+
+[node name="Object" type="MarginContainer" parent="PanelContainer/TabContainer"]
+layout_mode = 2
+theme = ExtResource("1_2u8hn")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+metadata/_tab_index = 0
+
+[node name="vbox" type="VBoxContainer" parent="PanelContainer/TabContainer/Object"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/TabContainer/Object/vbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer"]
+layout_mode = 2
+text = "Can Move"
+
+[node name="CheckBox2" type="CheckBox" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer"]
+layout_mode = 2
+text = "Can Rotate"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/TabContainer/Object/vbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer2"]
+layout_mode = 2
+text = "x: "
+
+[node name="SpinBox" type="SpinBox" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer2"]
+layout_mode = 2
+text = "   y: "
+
+[node name="SpinBox2" type="SpinBox" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/TabContainer/Object/vbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer3"]
+layout_mode = 2
+text = "Rotation: "
+
+[node name="SpinBox" type="SpinBox" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer3"]
+layout_mode = 2
+suffix = "°"
+
+[node name="BoundingBox" type="MarginContainer" parent="PanelContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_2u8hn")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+metadata/_tab_index = 1
+
+[node name="vbox" type="VBoxContainer" parent="PanelContainer/TabContainer/BoundingBox"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/TabContainer/BoundingBox/vbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/TabContainer/BoundingBox/vbox/HBoxContainer2"]
+layout_mode = 2
+text = "left: "
+
+[node name="SpinBox" type="SpinBox" parent="PanelContainer/TabContainer/BoundingBox/vbox/HBoxContainer2"]
+layout_mode = 2
+max_value = 1920.0
+
+[node name="Label2" type="Label" parent="PanelContainer/TabContainer/BoundingBox/vbox/HBoxContainer2"]
+layout_mode = 2
+text = "   right: "
+
+[node name="SpinBox2" type="SpinBox" parent="PanelContainer/TabContainer/BoundingBox/vbox/HBoxContainer2"]
+layout_mode = 2
+max_value = 1920.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/TabContainer/BoundingBox/vbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/TabContainer/BoundingBox/vbox/HBoxContainer3"]
+layout_mode = 2
+text = "top: "
+
+[node name="SpinBox" type="SpinBox" parent="PanelContainer/TabContainer/BoundingBox/vbox/HBoxContainer3"]
+layout_mode = 2
+max_value = 1920.0
+
+[node name="Label2" type="Label" parent="PanelContainer/TabContainer/BoundingBox/vbox/HBoxContainer3"]
+layout_mode = 2
+text = "   bottom: "
+
+[node name="SpinBox2" type="SpinBox" parent="PanelContainer/TabContainer/BoundingBox/vbox/HBoxContainer3"]
+layout_mode = 2
+max_value = 1920.0

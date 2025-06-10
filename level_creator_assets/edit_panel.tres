@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b8aj6i3o1wj5g"]
+
+[sub_resource type="SystemFont" id="SystemFont_76ly7"]
+
+[resource]
+default_base_scale = 1.0
+default_font = SubResource("SystemFont_76ly7")
+default_font_size = 28

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cf2m6x1kkit2d"]
 
 [ext_resource type="Script" uid="uid://dgmejgi7ulemw" path="res://scripts/ingame_boid.gd" id="2_54exh"]
-[ext_resource type="PackedScene" uid="uid://dth47xdgohkja" path="res://boid_sprite.tscn" id="2_raf21"]
+[ext_resource type="PackedScene" uid="uid://dth47xdgohkja" path="res://sprites/boid_sprite.tscn" id="2_raf21"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xur1n"]
 radius = 34.0

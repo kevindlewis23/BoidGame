@@ -23,6 +23,14 @@ extends Node2D
 @export var ALIGNMENT : float = 0.8
 @export var COHESION : float = 0.3
 
+# How close (in radians) the acceleration has to be from being in the exact opposite direction as velocity to add a slight turn
+@export var SHOULD_TURN_EPSILON : float = .1
+@export var SHOULD_TURN_MIN_ACCELERATION : float = MAX_ACCELERATION/2
+@export var SHOULD_TURN_ROTATION : float = -PI/4
+
+# Whether or not to teleport when you swim off the map (like pacman)
+@export var MAP_IS_TORUS : bool = false
+
 # Cohesion factor when COHESION is set to 1
 const COHESION_BASE_FACTOR = .04
 const SEPARATION_BASE_FACTOR = 80
@@ -30,9 +38,9 @@ const ALIGNMENT_BASE_FACTOR = .3
 
 
 const SCENE_LEFT = 0
-const SCENE_RIGHT = 1920
+var SCENE_RIGHT = Constants.WIDTH
 const SCENE_TOP = 0
-const SCENE_BOTTOM = 1080
+var SCENE_BOTTOM = Constants.HEIGHT
 
 
 var next_velocity : Vector2 = Vector2()
@@ -63,6 +71,11 @@ func lerp_to_new_position_and_angle(frames_left : int):
 	frames_left = max(frames_left, 1)
 	position = lerp(position, next_position, 1.0/frames_left)
 	rotation = lerp_angle(rotation, next_rotation, 1.0/frames_left)
+	if frames_left == 1 and MAP_IS_TORUS:
+		# If you are actually in the final location, make sure to wrap your position
+		position.x = wrapf(position.x, SCENE_LEFT, SCENE_RIGHT)
+		position.y = wrapf(position.y, SCENE_TOP, SCENE_BOTTOM)
+		
 
 func calc_velocity(delta : float, all_boids : Array, obstacles : Array) -> void:
 	# Get the boids near you
@@ -74,6 +87,11 @@ func calc_velocity(delta : float, all_boids : Array, obstacles : Array) -> void:
 						  separate(close_obstacles, OBSTACLE_AVOID_DISTANCE) * OBSTACLE_AVOIDANCE +
 						  avoid_walls() * WALL_AVOIDANCE +
 						  align(close_boids) * ALIGNMENT)
+	
+	# If velocity_change is in the exact opposite direction as velocity, add a slight right turn so you don't run straight into things
+	if (PI - absf(next_velocity.angle_to(velocity_change)) < SHOULD_TURN_EPSILON and
+		velocity_change.length_squared() > (SHOULD_TURN_MIN_ACCELERATION * delta)**2):
+		velocity_change = velocity_change.rotated(SHOULD_TURN_ROTATION)
 	
 	next_velocity += velocity_change.limit_length(delta * MAX_ACCELERATION)
 	next_velocity = clamp_vector(next_velocity, MIN_SPEED, MAX_SPEED) 

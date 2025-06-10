@@ -45,9 +45,40 @@ rotation = -0.31765
 
 [node name="Boid10" parent="boids" instance=ExtResource("1_o86xn")]
 position = Vector2(1459, 492)
+rotation = -0.270526
 
 [node name="Boid11" parent="boids" instance=ExtResource("1_o86xn")]
 position = Vector2(1232, 336)
+
+[node name="Boid13" parent="boids" instance=ExtResource("1_o86xn")]
+position = Vector2(407.72, 206.336)
+rotation = 1.4591
+
+[node name="Boid14" parent="boids" instance=ExtResource("1_o86xn")]
+position = Vector2(675.33, 125)
+rotation = 2.22006
+
+[node name="Boid15" parent="boids" instance=ExtResource("1_o86xn")]
+position = Vector2(400, 87)
+rotation = -0.31765
+
+[node name="Boid16" parent="boids" instance=ExtResource("1_o86xn")]
+position = Vector2(528, 233)
+
+[node name="Boid17" parent="boids" instance=ExtResource("1_o86xn")]
+position = Vector2(1128.72, 806.336)
+rotation = 1.4591
+
+[node name="Boid18" parent="boids" instance=ExtResource("1_o86xn")]
+position = Vector2(1396.33, 725)
+rotation = 2.22006
+
+[node name="Boid19" parent="boids" instance=ExtResource("1_o86xn")]
+position = Vector2(1121, 687)
+rotation = -0.31765
+
+[node name="Boid20" parent="boids" instance=ExtResource("1_o86xn")]
+position = Vector2(1249, 833)
 
 [node name="Boid12" parent="boids" instance=ExtResource("1_o86xn")]
 position = Vector2(1181, 61)
@@ -63,8 +94,24 @@ scale = Vector2(15, 15.697)
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(-1, 1, 0.102997, 1, 1, 1, 1, -1, -1, -1)
 
+[node name="Obstacle145" type="Node2D" parent="obstacles" groups=["obstacles"]]
+position = Vector2(852, 868)
+
+[node name="Polygon2D" type="Polygon2D" parent="obstacles/Obstacle145"]
+scale = Vector2(15, 15.697)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-1, 1, 0.102997, 1, 1, 1, 1, -1, -1, -1)
+
+[node name="Obstacle146" type="Node2D" parent="obstacles" groups=["obstacles"]]
+position = Vector2(1388, 828)
+
+[node name="Polygon2D" type="Polygon2D" parent="obstacles/Obstacle146"]
+scale = Vector2(15, 15.697)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-1, 1, 0.102997, 1, 1, 1, 1, -1, -1, -1)
+
 [node name="Obstacle144" type="Node2D" parent="obstacles" groups=["obstacles"]]
-position = Vector2(738, 341)
+position = Vector2(738, 301)
 
 [node name="Polygon2D" type="Polygon2D" parent="obstacles/Obstacle144"]
 scale = Vector2(15, 15.697)

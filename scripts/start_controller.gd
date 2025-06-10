@@ -13,7 +13,6 @@ func start():
 	var movable_things = get_tree().get_nodes_in_group("movable_things")
 	# Start them all
 	for thing in movable_things:
-		var thing_to_replace = thing.object_to_replace_on_start
 		var g_transform = thing.object_to_replace_on_start.global_transform
 		# Instantiate the new object in the right place
 		var new_obj = thing.object_to_relace_with.instantiate()
@@ -24,12 +23,31 @@ func start():
 	hide()
 	BoidsController.Instance.start()
 
+# Reset on pressing r
+func _unhandled_input(event):
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_R:
+			reset()
+		elif event.pressed and event.keycode == KEY_ESCAPE:
+			get_tree().quit()
+		elif event.pressed and event.keycode == KEY_Q:
+			leave_to_home()
+		elif (event.pressed and 
+			(event.keycode == KEY_SPACE or event.keycode == KEY_ENTER) 
+			and not BoidsController.Instance.running):
+			start()
+
+
 func reset():
-	# Delete everything in moving_objects parent
+	BoidsController.Instance.running = false
+	# Delete all boids
 	for node in BoidsController.Instance.get_children():
-		moving_objects_parent.remove_child(node)
+		BoidsController.Instance.remove_child(node)
 		node.queue_free()
 	for star in get_tree().get_nodes_in_group("stars"):
 		star.show()
 	show()
 	moving_objects_parent.show()
+
+func leave_to_home():
+	get_tree().change_scene_to_file("res://level_select.tscn")

@@ -1,16 +1,16 @@
 [gd_scene load_steps=7 format=3 uid="uid://ghr5vcnv1pue"]
 
 [ext_resource type="Script" uid="uid://8th1ioo5akc0" path="res://scripts/start_controller.gd" id="1_n0qsc"]
-[ext_resource type="PackedScene" uid="uid://xrb2j0f4etlf" path="res://movable_boid.tscn" id="2_dilhk"]
+[ext_resource type="PackedScene" uid="uid://xrb2j0f4etlf" path="res://movable_assets/movable_boid.tscn" id="2_dilhk"]
 [ext_resource type="Script" uid="uid://cbr8ffbxsfbit" path="res://scripts/boids_controller.gd" id="3_3mhv4"]
-[ext_resource type="PackedScene" uid="uid://cf2m6x1kkit2d" path="res://player_boid.tscn" id="3_syshm"]
-[ext_resource type="PackedScene" uid="uid://c7vabsf7wmd2c" path="res://Star.tscn" id="4_rf6l5"]
+[ext_resource type="PackedScene" uid="uid://cf2m6x1kkit2d" path="res://game_objects/player_boid.tscn" id="3_syshm"]
+[ext_resource type="PackedScene" uid="uid://chcs1dkccf6fi" path="res://game_objects/star.tscn" id="4_rf6l5"]
 
 [sub_resource type="SystemFont" id="SystemFont_3mhv4"]
 font_names = PackedStringArray("Arial")
 subpixel_positioning = 0
 
-[node name="Level_1" type="Node2D"]
+[node name="Level" type="Node2D"]
 
 [node name="Start_button" type="Button" parent="." node_paths=PackedStringArray("moving_objects_parent")]
 offset_left = 1752.0
