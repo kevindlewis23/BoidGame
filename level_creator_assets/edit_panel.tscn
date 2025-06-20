@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://b8aj6i3o1wj5g" path="res://level_creator_assets/edit_panel.tres" id="1_2u8hn"]
 [ext_resource type="Script" uid="uid://c1eb0utvv7nb1" path="res://scripts/level_creator_control_box.gd" id="1_xmuhi"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("can_move_checkbox", "can_rotate_checkbox", "x_position", "y_position", "rotation_box", "rotation_container", "box_left", "box_right", "box_bottom", "box_top", "bounding_box_tab", "tab_container")]
+[node name="Control" type="Control" node_paths=PackedStringArray("can_move_checkbox", "can_rotate_checkbox", "can_collect_stars_box_container", "can_move_and_rotate_container", "x_position", "y_position", "rotation_box", "rotation_container", "box_left", "box_right", "box_bottom", "box_top", "bounding_box_tab", "tab_container", "delete_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +13,8 @@ grow_vertical = 2
 script = ExtResource("1_xmuhi")
 can_move_checkbox = NodePath("PanelContainer/TabContainer/Object/vbox/HBoxContainer/CheckBox")
 can_rotate_checkbox = NodePath("PanelContainer/TabContainer/Object/vbox/HBoxContainer/CheckBox2")
+can_collect_stars_box_container = NodePath("PanelContainer/TabContainer/Object/vbox/HBoxContainer4")
+can_move_and_rotate_container = NodePath("PanelContainer/TabContainer/Object/vbox/HBoxContainer")
 x_position = NodePath("PanelContainer/TabContainer/Object/vbox/HBoxContainer2/SpinBox")
 y_position = NodePath("PanelContainer/TabContainer/Object/vbox/HBoxContainer2/SpinBox2")
 rotation_box = NodePath("PanelContainer/TabContainer/Object/vbox/HBoxContainer3/SpinBox")
@@ -23,6 +25,7 @@ box_bottom = NodePath("PanelContainer/TabContainer/BoundingBox/vbox/HBoxContaine
 box_top = NodePath("PanelContainer/TabContainer/BoundingBox/vbox/HBoxContainer3/SpinBox")
 bounding_box_tab = NodePath("PanelContainer/TabContainer/BoundingBox")
 tab_container = NodePath("PanelContainer/TabContainer")
+delete_button = NodePath("PanelContainer/TabContainer/Object/vbox/RemoveButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
@@ -52,11 +55,22 @@ alignment = 1
 
 [node name="CheckBox" type="CheckBox" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer"]
 layout_mode = 2
+button_pressed = true
 text = "Can Move"
 
 [node name="CheckBox2" type="CheckBox" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer"]
 layout_mode = 2
+button_pressed = true
 text = "Can Rotate"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="PanelContainer/TabContainer/Object/vbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer4"]
+layout_mode = 2
+button_pressed = true
+text = "Can Collect Stars"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/TabContainer/Object/vbox"]
 layout_mode = 2
@@ -87,6 +101,10 @@ text = "Rotation: "
 [node name="SpinBox" type="SpinBox" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer3"]
 layout_mode = 2
 suffix = "°"
+
+[node name="RemoveButton" type="Button" parent="PanelContainer/TabContainer/Object/vbox"]
+layout_mode = 2
+text = "Remove"
 
 [node name="BoundingBox" type="MarginContainer" parent="PanelContainer/TabContainer"]
 visible = false

@@ -12,7 +12,7 @@ func move_to(target_position : Vector2, outer_bounding_box: Rect2) -> void:
 	test_aabb.position = target_position - size / 2
 	global_position = target_position - size / 2 + get_box_delta(outer_bounding_box, test_aabb)
 
-func rotate_to(target_rotation: float, outer_bounding_box: Rect2) -> bool:
+func rotate_to(target_rotation: float, _outer_bounding_box: Rect2) -> bool:
 	child_rotator.rotation = target_rotation
 	return true
 

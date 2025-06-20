@@ -61,8 +61,9 @@ func rotate_point(point: Vector2, center:Vector2, theta: float):
 		center.y-(point.x-center.x)*sin(theta)+(point.y-center.y)*cos(theta)
 	)
 
-func find_actual_position(fake_position : Vector2, size: Vector2, theta: float):
+# sz is size
+func find_actual_position(fake_position : Vector2, sz: Vector2, theta: float):
 	return fake_position + Vector2(
-		.5 * (size.x * cos(theta) - size.x - size.y * sin(theta)),
-		.5 * (size.x * sin(theta) - size.y + size.y * cos(theta))
+		.5 * (sz.x * cos(theta) - sz.x - sz.y * sin(theta)),
+		.5 * (sz.x * sin(theta) - sz.y + sz.y * cos(theta))
 	)

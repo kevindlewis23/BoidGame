@@ -4,10 +4,10 @@ class_name BoundingArea
 extends Control
 
 
-func move_to(target_position : Vector2, outer_bounding_box: Rect2) -> void:
+func move_to(_target_position : Vector2, _outer_bounding_box: Rect2) -> void:
 	"""Move as close to the target position as possible"""
 
-func rotate_to(target_rotation: float, outer_bounding_box: Rect2) -> bool:
+func rotate_to(_target_rotation: float, _outer_bounding_box: Rect2) -> bool:
 	"""Try to rotate to the target position, if it fails, return false"""
 	return false
 

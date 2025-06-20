@@ -18,6 +18,8 @@ signal moved
 var bounding_box_aabb : Rect2
 var is_hovered : bool = false
 
+var is_level_creator_thing : bool = false
+
 
 
 var click_down_position : Vector2
@@ -34,9 +36,11 @@ func _ready() -> void:
 	moving_object_bounding_box.mouse_entered.connect(set_hovered)
 	moving_object_bounding_box.mouse_exited.connect(set_unhovered)
 	set_unhovered()
-	var help_text = "✅ move, " if can_move else "❌ move, " 
-	help_text += "✅ rotate" if can_rotate else "❌ rotate"
-	moving_object_bounding_box.tooltip_text = help_text
+	# Add a tooltip unless this is a level_creator thing
+	if not is_level_creator_thing:
+		var help_text = "✅ move, " if can_move else "❌ move, " 
+		help_text += "✅ rotate" if can_rotate else "❌ rotate"
+		moving_object_bounding_box.tooltip_text = help_text
 
 func get_rect_bounds(box : Polygon2D):
 	var aabb = Rect2(box.polygon[0], Vector2.ZERO)

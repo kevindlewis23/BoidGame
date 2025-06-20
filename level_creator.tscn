@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcgr5tvlk38f2"]
+[gd_scene load_steps=9 format=3 uid="uid://bcgr5tvlk38f2"]
 
 [ext_resource type="Script" uid="uid://61h3jn06bqua" path="res://scripts/level_creator.gd" id="1_ac3t6"]
 [ext_resource type="Script" uid="uid://dng4l2202d5u3" path="res://scripts/create_item_button.gd" id="2_jelr6"]
@@ -6,11 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://cx7ofsplb5ohi" path="res://sprites/repeller_sprite.tscn" id="3_euxh4"]
 [ext_resource type="PackedScene" uid="uid://mbrqswn47dok" path="res://level_creator_assets/level_creator_boid.tscn" id="3_fmw0n"]
 [ext_resource type="PackedScene" uid="uid://bqnakw3e2hf0m" path="res://sprites/star_sprite.tscn" id="4_bx45c"]
-[ext_resource type="PackedScene" uid="uid://cavytsjvjplv0" path="res://movable_assets/movable_repeller.tscn" id="5_sy2r1"]
+[ext_resource type="PackedScene" uid="uid://gnmquo1dt3ht" path="res://level_creator_assets/level_creator_repeller.tscn" id="5_fmw0n"]
+[ext_resource type="PackedScene" uid="uid://xkuj1xis7wmv" path="res://level_creator_assets/level_creator_star.tscn" id="7_sy2r1"]
 
-[node name="Level_Creator" type="Node2D" node_paths=PackedStringArray("add_options")]
+[node name="Level_Creator" type="Node2D" node_paths=PackedStringArray("add_options", "created_objects")]
 script = ExtResource("1_ac3t6")
 add_options = NodePath("Panel")
+created_objects = NodePath("created_objects_parent")
 
 [node name="created_objects_parent" type="Node2D" parent="."]
 
@@ -36,7 +38,7 @@ offset_top = 80.0
 offset_right = 80.0
 offset_bottom = 160.0
 script = ExtResource("2_jelr6")
-object_to_create = ExtResource("5_sy2r1")
+object_to_create = ExtResource("5_fmw0n")
 where_to_create = NodePath("../../created_objects_parent")
 
 [node name="Sprite" parent="Panel/Repeller" instance=ExtResource("3_euxh4")]
@@ -48,7 +50,7 @@ offset_top = 160.0
 offset_right = 80.0
 offset_bottom = 240.0
 script = ExtResource("2_jelr6")
-object_to_create = ExtResource("4_bx45c")
+object_to_create = ExtResource("7_sy2r1")
 where_to_create = NodePath("../../created_objects_parent")
 
 [node name="Node2D" parent="Panel/Star" instance=ExtResource("4_bx45c")]

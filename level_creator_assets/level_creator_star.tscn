@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://xkuj1xis7wmv"]
+
+[ext_resource type="Script" uid="uid://dcojf2ukq6jje" path="res://scripts/level_creator_thing.gd" id="1_r7t2j"]
+[ext_resource type="PackedScene" uid="uid://chcs1dkccf6fi" path="res://game_objects/star.tscn" id="2_r7t2j"]
+[ext_resource type="Script" uid="uid://urf4wm3aun5y" path="res://scripts/bounding_circle.gd" id="3_psoka"]
+[ext_resource type="PackedScene" uid="uid://bqnakw3e2hf0m" path="res://sprites/star_sprite.tscn" id="4_vpi01"]
+[ext_resource type="PackedScene" uid="uid://cxwmn0xrg7jro" path="res://level_creator_assets/edit_panel.tscn" id="5_r7t2j"]
+
+[node name="MovableStar" type="Node2D" node_paths=PackedStringArray("control_box", "bounding_box", "moving_object_bounding_box", "object_to_replace_on_start") groups=["movable_things"]]
+script = ExtResource("1_r7t2j")
+control_box = NodePath("Control")
+object_type = 2
+can_rotate = false
+bounding_box = NodePath("Polygon2D")
+moving_object_bounding_box = NodePath("ReferenceRect")
+bounding_box_hover_color = Color(1, 1, 1, 0)
+object_to_replace_on_start = NodePath("ReferenceRect/Node2D/Node2D")
+object_to_relace_with = ExtResource("2_r7t2j")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="." node_paths=PackedStringArray("child_rotator")]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+script = ExtResource("3_psoka")
+child_rotator = NodePath("Node2D")
+
+[node name="Node2D" type="Node2D" parent="ReferenceRect"]
+position = Vector2(20, 20)
+
+[node name="Node2D" parent="ReferenceRect/Node2D" instance=ExtResource("4_vpi01")]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0.121569)
+polygon = PackedVector2Array(0, 0, 1920, 0, 1920, 1080, 0, 1080)
+
+[node name="Control" parent="." node_paths=PackedStringArray("bounding_box", "object", "connected_thing") instance=ExtResource("5_r7t2j")]
+has_rotation = false
+has_bounding_box = false
+bounding_box = NodePath("../Polygon2D")
+object = NodePath("../ReferenceRect")
+connected_thing = NodePath("..")

@@ -6,6 +6,8 @@ extends Control
 
 @export var can_move_checkbox : CheckBox
 @export var can_rotate_checkbox : CheckBox
+@export var can_collect_stars_box_container : Container
+@export var can_move_and_rotate_container : Container
 @export var x_position : SpinBox
 @export var y_position : SpinBox
 @export var rotation_box : SpinBox
@@ -19,8 +21,16 @@ extends Control
 @export var object : BoundingArea
 @export var connected_thing : LevelCreatorThing
 @export var tab_container : TabContainer
+@export var delete_button : Button
+@export var is_boid : bool = false
 
+
+var can_collect_stars_box : CheckBox
 const dist_from_object : float = 40.0
+
+
+# Used for Level Creator state saving
+var ignore_value_changes : bool = false
 
 
 var clicked_here : bool = false
@@ -31,8 +41,13 @@ func _ready() -> void:
 		rotation_container.hide()
 
 	if not has_bounding_box:
-		remove_child(bounding_box_tab)
 		bounding_box_tab.queue_free()
+		can_move_and_rotate_container.queue_free()
+	
+	if not is_boid:
+		can_collect_stars_box_container.queue_free()
+	else:
+		can_collect_stars_box = can_collect_stars_box_container.get_child(0)
 	
 	# Set bounds
 	x_position.min_value = 0
@@ -74,10 +89,15 @@ func _ready() -> void:
 		var gc = object.get_global_center()
 		# move box after a small delay to ensure the new tab is focused
 		await get_tree().create_timer(0).timeout
-		move_box(gc.x, gc.y)	
+		move_box(gc.x, gc.y)
 	)
 
+	delete_button.pressed.connect(remove_this)
+
+
 func resize_box_from_val(from_right : bool, from_bottom : bool) -> void:
+	if not ignore_value_changes:
+		LevelCreator.instance.state_changed.emit.call_deferred()
 	connected_thing.resize_box(
 		box_left.value,
 		box_top.value,
@@ -94,11 +114,15 @@ func hide_if_not_focused() -> void:
 func set_pos_from_box(_new_val) -> void:
 	var pos = Vector2(x_position.value, y_position.value)
 	object.move_to(pos, connected_thing.bounding_box_aabb)
+	if not ignore_value_changes:
+		LevelCreator.instance.state_changed.emit.call_deferred()
 	set_values_to_current()
 
 func set_rotation_from_box(new_val) -> void:
 	var rot = -new_val * PI / 180
 	object.rotate_to(rot, connected_thing.bounding_box_aabb)
+	if not ignore_value_changes:
+		LevelCreator.instance.state_changed.emit.call_deferred()
 	set_values_to_current()
 
 func set_values_to_current() -> void:
@@ -120,14 +144,17 @@ func set_values_to_current() -> void:
 
 func set_values(x : float, y : float, rot : float, box_left_value : float, box_top_value : float,
 		box_right_value : float, box_bottom_value : float) -> void:
+	ignore_value_changes = true
 	x_position.value = x
 	y_position.value = y
 	rotation_box.value = rot
-	box_left.value = box_left_value
-	box_top.value = box_top_value
-	box_right.value = box_right_value
-	box_bottom.value = box_bottom_value
+	if has_bounding_box:
+		box_left.value = box_left_value
+		box_top.value = box_top_value
+		box_right.value = box_right_value
+		box_bottom.value = box_bottom_value
 	move_box(x, y)
+	set_deferred("ignore_value_changes", false)
 	
 	
 func move_box(x : float, y: float):
@@ -151,3 +178,13 @@ func _input(event: InputEvent) -> void:
 				clicked_here = true
 		elif event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed():
 			set_deferred("clicked_here", false)
+	elif event is InputEventKey:
+		if event.pressed and event.keycode == KEY_ESCAPE:
+			hide_if_not_focused()
+		elif event.pressed and event.keycode == KEY_DELETE:
+			if visible:
+				remove_this()
+
+func remove_this():
+	connected_thing.tree_exited.connect(LevelCreator.instance.state_changed.emit)
+	connected_thing.queue_free()

@@ -35,3 +35,4 @@ polygon = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
 bounding_box = NodePath("../Polygon2D")
 object = NodePath("../ReferenceRect")
 connected_thing = NodePath("..")
+is_boid = true
