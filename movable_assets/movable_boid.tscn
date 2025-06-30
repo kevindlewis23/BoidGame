@@ -10,7 +10,7 @@ script = ExtResource("1_68sj6")
 bounding_box = NodePath("Polygon2D")
 moving_object_bounding_box = NodePath("ReferenceRect")
 object_to_replace_on_start = NodePath("ReferenceRect/Node2D/Node2D")
-object_to_relace_with = ExtResource("2_jtx3i")
+object_to_replace_with = ExtResource("2_jtx3i")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="." node_paths=PackedStringArray("child_rotator")]
 offset_left = 71.0

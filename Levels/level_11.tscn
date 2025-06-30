@@ -28,7 +28,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Moving_objects" type="Node2D" parent="."]
 
 [node name="MovableBoid" parent="Moving_objects" instance=ExtResource("2_gu58g")]
-object_to_relace_with = ExtResource("3_55fqf")
+object_to_replace_with = ExtResource("3_55fqf")
 
 [node name="ReferenceRect" parent="Moving_objects/MovableBoid" index="0"]
 offset_left = 70.0
@@ -50,3 +50,4 @@ position = Vector2(1695, 557)
 
 [editable path="Moving_objects/MovableBoid"]
 [editable path="Moving_objects/MovableBoid/ReferenceRect/Node2D/Node2D"]
+[editable path="Moving_objects/MovableRepeller"]

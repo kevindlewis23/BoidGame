@@ -13,11 +13,13 @@ var state_list : Array = []
 var current_state_index : int = 0
 
 
-static var right_click_captued : bool = false
+static var right_click_captured : bool = false
 static var instance : LevelCreator = null
 var viewport : Viewport
 
 var create_position = Vector2()
+
+var level_loader : PackedScene = load("res://level_loader.tscn")
 
 func _ready():
 	viewport = get_viewport()
@@ -27,7 +29,12 @@ func _ready():
 	instance = self
 
 	# Load the default level
-	var lvl = load_level("res://level_creator_assets/default_level.json")
+	var lvl
+	if FileAccess.file_exists(Constants.level_creator_tmp_file_path):
+		lvl = load_level(Constants.level_creator_tmp_file_path)
+	else:
+		lvl = load_level("res://level_creator_assets/default_level.json")
+
 	state_list.append(lvl)
 	
 	
@@ -54,8 +61,8 @@ func load_level(level_path: String) -> Array:
 func _input( event ):
 	if event is InputEventMouseButton:
 		if event.button_index == 2 and event.is_released():
-			if right_click_captued:
-				right_click_captued = false
+			if right_click_captured:
+				right_click_captured = false
 			else:
 				create_position = viewport.get_mouse_position()
 				add_options.show()
@@ -77,6 +84,16 @@ func _input( event ):
 				load_state(state_list[current_state_index])
 		elif event.is_pressed() and event.keycode == KEY_S and event.is_command_or_control_pressed():
 			save_state_to_file()
+		elif event.is_pressed() and event.keycode == KEY_T:
+			save_state_to_file_path(Constants.level_creator_tmp_file_path)
+			LevelInstanceProps.scene_to_return_to = "res://level_creator.tscn"
+			get_tree().change_scene_to_packed(level_loader)
+		elif event.is_pressed() and event.keycode == KEY_N and event.is_command_or_control_pressed() and event.shift_pressed:
+			# Delete the temp file and restart the scene
+			if FileAccess.file_exists(Constants.level_creator_tmp_file_path):
+				DirAccess.remove_absolute(Constants.level_creator_tmp_file_path)
+			get_tree().reload_current_scene()
+			
 
 func save_state() -> Array:
 	var state = []
@@ -114,10 +131,10 @@ func save_state_to_file() -> void:
 	file_dialog.current_file = "level.json"
 	add_child(file_dialog)
 	file_dialog.popup_centered()
-	file_dialog.file_selected.connect(_on_file_selected)
+	file_dialog.file_selected.connect(save_state_to_file_path)
 
 
-func _on_file_selected(path: String) -> void:
+func save_state_to_file_path(path: String) -> void:
 	# Open the new file
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file:

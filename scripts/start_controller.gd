@@ -9,16 +9,20 @@ func _ready():
 	pressed.connect(start)
 
 func start():
+	IngameBoid.num_main_boids = 0
 	# Fist, find all movable object
 	var movable_things = get_tree().get_nodes_in_group("movable_things")
 	# Start them all
+	
 	for thing in movable_things:
 		var g_transform = thing.object_to_replace_on_start.global_transform
 		# Instantiate the new object in the right place
-		var new_obj = thing.object_to_relace_with.instantiate()
+		var new_obj = thing.object_to_replace_with.instantiate()
 		
 		new_obj.global_transform = g_transform
 		BoidsController.Instance.add_child(new_obj)
+		if new_obj is IngameBoid and new_obj.is_main_boid:
+			IngameBoid.num_main_boids += 1
 	moving_objects_parent.hide()
 	hide()
 	BoidsController.Instance.start()
@@ -50,4 +54,4 @@ func reset():
 	moving_objects_parent.show()
 
 func leave_to_home():
-	get_tree().change_scene_to_file("res://level_select.tscn")
+	get_tree().change_scene_to_file(LevelInstanceProps.scene_to_return_to)

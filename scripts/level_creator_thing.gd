@@ -15,11 +15,12 @@ const mask_y = [-1, -1, 1, 1]
 @export var corner_size = 20
 @export var corner_color = Color(1, 1, 1, .5)
 @export var control_box : ControlBox
-@export var is_starting_boid : bool = false
 @export var object_type : ObjectType = ObjectType.BOID
 var starting_boid_bb_width : float = 200.0
 var hovered_corner : ColorRect = null
 var hovered_corner_index : int = -1
+
+
 
 const OBJECT_SCENES = {
 	ObjectType.BOID: preload("res://level_creator_assets/level_creator_boid.tscn"),
@@ -56,18 +57,12 @@ func _ready() -> void:
 					hovered_corner = null
 					hovered_corner_index = -1
 			)
-		if is_starting_boid:
-			resize_box(DEFAULT_BOUNDARY, DEFAULT_BOUNDARY,
-				DEFAULT_BOUNDARY + starting_boid_bb_width, Constants.HEIGHT - DEFAULT_BOUNDARY)
-		else:
-			resize_box(DEFAULT_BOUNDARY, DEFAULT_BOUNDARY,
-				Constants.WIDTH - DEFAULT_BOUNDARY, Constants.HEIGHT - DEFAULT_BOUNDARY)
+		
+		resize_box(DEFAULT_BOUNDARY, DEFAULT_BOUNDARY,
+			Constants.WIDTH - DEFAULT_BOUNDARY, Constants.HEIGHT - DEFAULT_BOUNDARY)
 	super._ready()
-	if is_starting_boid:
-		moving_object_bounding_box.move_to(Vector2(DEFAULT_BOUNDARY + starting_boid_bb_width/2.0, Constants.HEIGHT/2.0), bounding_box_aabb)
-		remove_control_box.emit()
-	else:
-		moving_object_bounding_box.move_to(mobb_pos + moving_object_bounding_box.size / 2, bounding_box_aabb)
+	
+	moving_object_bounding_box.move_to(mobb_pos + moving_object_bounding_box.size / 2, bounding_box_aabb)
 	reposition_corners()
 
 	LevelCreator.instance.state_changed.emit.call_deferred()
@@ -150,7 +145,7 @@ func _input( event ):
 			else:
 				add_control_box.emit()
 			# If we were dragging or rotating, we emit the state changed signal
-			if (is_dragging and event.button_index == MOUSE_BUTTON_LEFT) or (is_rotating and event.button_index == MOUSE_BUTTON_RIGHT):
+			if (is_dragging_has_actually_started and event.button_index == MOUSE_BUTTON_LEFT) or (is_rotating and event.button_index == MOUSE_BUTTON_RIGHT):
 				LevelCreator.instance.state_changed.emit()
 	super._input(event)
 
@@ -197,7 +192,6 @@ static func load_state(state: Dictionary) -> LevelCreatorThing:
 		var huge_box = Rect2(-Constants.WIDTH, -Constants.HEIGHT, 2 * Constants.WIDTH, 2 * Constants.HEIGHT)
 		new_object.moving_object_bounding_box.move_to(Vector2(state["object"]["x"], state["object"]["y"]), huge_box)
 		if new_object.object_type == ObjectType.BOID:
-
 			var target_rotation = -state["object"]["rotation"] * PI / 180.0
 			new_object.moving_object_bounding_box.rotate_to(target_rotation, huge_box)
 			new_object.control_box.can_rotate_checkbox.button_pressed = state["object"]["can_rotate"]

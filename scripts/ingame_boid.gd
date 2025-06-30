@@ -1,3 +1,4 @@
+class_name IngameBoid
 extends Boid
 
 """Boid that has collisions"""
@@ -11,6 +12,9 @@ extends Boid
 
 var star_count = 0
 var must_be_in_area : Rect2
+
+static var num_main_boids = 1
+var is_dead : bool = false
 
 func _ready():
 	super._ready()
@@ -31,8 +35,13 @@ func collide(other_collider : Area2D):
 
 func _physics_process(_delta : float):
 	# Lose if you are too far out of the bounds
+	if is_dead:
+		return
 	if is_main_boid and not must_be_in_area.has_point(global_position):
-		lose("You swam out of the map!!")
+		is_dead = true
+		num_main_boids -= 1
+		if num_main_boids <= 0:
+			lose("You swam out of the map!!")
 
 func _draw() -> void:
 	if is_main_boid:
@@ -45,7 +54,7 @@ func collide_with_star(star : Node2D):
 		if star_count <= 0:
 			win()
 
-func collide_with_zapper(zapper : Node2D):
+func collide_with_zapper(_zapper : Node2D):
 	lose("You got zapped!")
 
 func win():

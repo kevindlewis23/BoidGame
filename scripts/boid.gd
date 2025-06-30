@@ -24,7 +24,7 @@ extends Node2D
 @export var COHESION : float = 0.3
 
 # How close (in radians) the acceleration has to be from being in the exact opposite direction as velocity to add a slight turn
-@export var SHOULD_TURN_EPSILON : float = .1
+@export var SHOULD_TURN_EPSILON : float = .04
 @export var SHOULD_TURN_MIN_ACCELERATION : float = MAX_ACCELERATION/2
 @export var SHOULD_TURN_ROTATION : float = -PI/4
 

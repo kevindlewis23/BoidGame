@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://gnmquo1dt3ht"]
+[gd_scene load_steps=5 format=3 uid="uid://gnmquo1dt3ht"]
 
 [ext_resource type="Script" uid="uid://dcojf2ukq6jje" path="res://scripts/level_creator_thing.gd" id="1_lek1h"]
-[ext_resource type="PackedScene" uid="uid://bny816xqmk00k" path="res://game_objects/repeller.tscn" id="2_e3pqc"]
 [ext_resource type="Script" uid="uid://urf4wm3aun5y" path="res://scripts/bounding_circle.gd" id="3_eas7o"]
 [ext_resource type="PackedScene" uid="uid://cx7ofsplb5ohi" path="res://sprites/repeller_sprite.tscn" id="4_ydopk"]
 [ext_resource type="PackedScene" uid="uid://cxwmn0xrg7jro" path="res://level_creator_assets/edit_panel.tscn" id="5_f8wgy"]
@@ -14,7 +13,6 @@ can_rotate = false
 bounding_box = NodePath("Polygon2D")
 moving_object_bounding_box = NodePath("ReferenceRect")
 object_to_replace_on_start = NodePath("ReferenceRect/Node2D/Node2D")
-object_to_relace_with = ExtResource("2_e3pqc")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="." node_paths=PackedStringArray("child_rotator")]
 offset_left = -20.0

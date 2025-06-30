@@ -27,7 +27,7 @@ moving_objects_parent = NodePath("../Moving_objects")
 
 [node name="MovableBoid" parent="Moving_objects" instance=ExtResource("2_dilhk")]
 can_rotate = false
-object_to_relace_with = ExtResource("3_syshm")
+object_to_replace_with = ExtResource("3_syshm")
 
 [node name="ReferenceRect" parent="Moving_objects/MovableBoid" index="0"]
 offset_left = 70.0

@@ -11,7 +11,7 @@ can_rotate = false
 bounding_box = NodePath("Polygon2D")
 moving_object_bounding_box = NodePath("ReferenceRect")
 object_to_replace_on_start = NodePath("ReferenceRect/Node2D/Node2D")
-object_to_relace_with = ExtResource("2_qgjwd")
+object_to_replace_with = ExtResource("2_qgjwd")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="." node_paths=PackedStringArray("child_rotator")]
 offset_left = 85.0

@@ -26,7 +26,7 @@ moving_objects_parent = NodePath("../Moving_objects")
 [node name="Moving_objects" type="Node2D" parent="."]
 
 [node name="MovableBoid" parent="Moving_objects" instance=ExtResource("2_hvgxt")]
-object_to_relace_with = ExtResource("3_waaef")
+object_to_replace_with = ExtResource("3_waaef")
 
 [node name="ReferenceRect" parent="Moving_objects/MovableBoid" index="0"]
 offset_left = 70.0

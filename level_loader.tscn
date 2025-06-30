@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7se7o5hg24gc"]
+
+[ext_resource type="Script" uid="uid://dw2duthb6djv0" path="res://scripts/level_loader.gd" id="1_ox13j"]
+[ext_resource type="Script" uid="uid://8th1ioo5akc0" path="res://scripts/start_controller.gd" id="2_73jjw"]
+[ext_resource type="Script" uid="uid://cbr8ffbxsfbit" path="res://scripts/boids_controller.gd" id="3_nfi1l"]
+
+[sub_resource type="SystemFont" id="SystemFont_2tn75"]
+font_names = PackedStringArray("Arial")
+subpixel_positioning = 0
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("moving_objects_parent", "where_to_place_stars")]
+script = ExtResource("1_ox13j")
+moving_objects_parent = NodePath("Moving_objects")
+where_to_place_stars = NodePath(".")
+
+[node name="Start_button" type="Button" parent="." node_paths=PackedStringArray("moving_objects_parent")]
+offset_left = 1752.0
+offset_top = 15.0
+offset_right = 1894.0
+offset_bottom = 80.0
+theme_override_fonts/font = SubResource("SystemFont_2tn75")
+theme_override_font_sizes/font_size = 32
+text = "Start"
+script = ExtResource("2_73jjw")
+moving_objects_parent = NodePath("../Moving_objects")
+
+[node name="Moving_objects" type="Node2D" parent="."]
+
+[node name="boid_parent" type="Node" parent="."]
+script = ExtResource("3_nfi1l")

@@ -12,7 +12,10 @@ signal moved
 @export var bounding_box_base_color : Color = Color.TRANSPARENT
 
 @export var object_to_replace_on_start : Node2D
-@export var object_to_relace_with : PackedScene
+@export var object_to_replace_with : PackedScene
+
+# how long after clicking the mouse button before you can actually move the object
+const tap_time = .1
 
 # Boundaries
 var bounding_box_aabb : Rect2
@@ -27,6 +30,7 @@ var clicked: bool = false
 
 var viewport : Viewport
 var is_dragging : bool = false
+var is_dragging_has_actually_started : bool = false
 var is_rotating : bool = false
 var look_at_segment : Line2D = null
 
@@ -62,14 +66,14 @@ func set_unhovered():
 func _input( event ):
 	if event is InputEventMouseButton:
 		if event.button_index == 1 and event.is_pressed() and is_hovered and can_move:
-			is_dragging = true
+			start_dragging()
 		elif event.button_index == 1 and not event.is_pressed() and can_move:
-			is_dragging = false
+			stop_dragging()
 			if not is_hovered and not is_rotating:
 				bounding_box.color = bounding_box_base_color
 		elif event.button_index == 2 and event.is_pressed() and is_hovered and can_rotate:
 			is_rotating = true
-			LevelCreator.right_click_captued = true
+			LevelCreator.right_click_captured = true
 		elif event.button_index == 2 and not event.is_pressed() and can_rotate:
 			is_rotating = false
 			if look_at_segment:
@@ -79,8 +83,22 @@ func _input( event ):
 				bounding_box.color = bounding_box_base_color
 
 
+func start_dragging():
+	if not is_dragging:
+		is_dragging = true
+		is_dragging_has_actually_started = false
+		# Set a timeout to start dragging
+		get_tree().create_timer(tap_time).timeout.connect(func():
+			if is_dragging:
+				is_dragging_has_actually_started = true
+		)
+
+func stop_dragging():
+	is_dragging = false
+	is_dragging_has_actually_started = false
+
 func _process(_delta):
-	if is_dragging:
+	if is_dragging and is_dragging_has_actually_started:
 		var target_position = viewport.get_mouse_position()
 		moving_object_bounding_box.move_to(target_position, bounding_box_aabb)
 		moved.emit()

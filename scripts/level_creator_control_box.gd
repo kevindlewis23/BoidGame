@@ -46,6 +46,8 @@ func _ready() -> void:
 	
 	if not is_boid:
 		can_collect_stars_box_container.queue_free()
+		# Set can_move to false by default
+		can_move_checkbox.button_pressed = false
 	else:
 		can_collect_stars_box = can_collect_stars_box_container.get_child(0)
 	
@@ -83,7 +85,10 @@ func _ready() -> void:
 		resize_box_from_val(false, true)
 	)
 
-	connected_thing.add_control_box.connect(show)
+	connected_thing.add_control_box.connect(func(): 
+		show()
+		get_parent().get_parent().move_child(get_parent(), -1)
+	)
 	connected_thing.remove_control_box.connect(hide_if_not_focused)
 	tab_container.tab_changed.connect(func (_new_index) -> void:
 		var gc = object.get_global_center()
