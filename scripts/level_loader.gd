@@ -1,6 +1,5 @@
 extends Node2D
 
-@export var level_file_path: String = Constants.level_creator_tmp_file_path
 
 @export var moving_objects_parent : Node2D
 @export var where_to_place_stars : Node2D
@@ -16,6 +15,7 @@ const OBJECT_SCENES = {
 const player_boid_scene = preload("res://game_objects/player_boid.tscn") as PackedScene
 
 func _ready() -> void:
+	var level_file_path = LevelInstanceProps.level_file_path
 
 	if FileAccess.file_exists(level_file_path):
 		var file = FileAccess.open(level_file_path, FileAccess.READ)

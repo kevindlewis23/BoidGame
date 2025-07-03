@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://urf4wm3aun5y" path="res://scripts/bounding_circle.gd" id="3_yp4ui"]
 [ext_resource type="PackedScene" uid="uid://cx7ofsplb5ohi" path="res://sprites/repeller_sprite.tscn" id="4_qgjwd"]
 
-[node name="MovableRepeller" type="Node2D" node_paths=PackedStringArray("bounding_box", "moving_object_bounding_box", "object_to_replace_on_start") groups=["movable_things"]]
+[node name="MovableRepeller" type="Node2D" node_paths=PackedStringArray("bounding_box", "moving_object_bounding_box", "object_to_replace_on_start") groups=["movable_things", "movable_things_that_definitely_dont_rotate"]]
 script = ExtResource("1_fsgq0")
 can_rotate = false
 bounding_box = NodePath("Polygon2D")

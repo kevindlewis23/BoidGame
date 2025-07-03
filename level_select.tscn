@@ -19,7 +19,7 @@ grow_vertical = 2
 script = ExtResource("1_05pd3")
 start_button = NodePath("Panel/Button")
 option_select = NodePath("Panel/OptionButton")
-num_levels = 13
+num_levels = 14
 
 [node name="Boids" parent="." instance=ExtResource("10_05pd3")]
 

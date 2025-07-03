@@ -42,8 +42,10 @@ func _ready() -> void:
 	set_unhovered()
 	# Add a tooltip unless this is a level_creator thing
 	if not is_level_creator_thing:
-		var help_text = "✅ move, " if can_move else "❌ move, " 
-		help_text += "✅ rotate" if can_rotate else "❌ rotate"
+		var help_text = "✅ move" if can_move else "❌ move" 
+		# Add rotation if it is enabled, if it is not something like a repeller (can't be rotated anyway)
+		if not self.is_in_group("movable_things_that_definitely_dont_rotate"):
+			help_text += ", ✅ rotate" if can_rotate else ", ❌ rotate"
 		moving_object_bounding_box.tooltip_text = help_text
 
 func get_rect_bounds(box : Polygon2D):

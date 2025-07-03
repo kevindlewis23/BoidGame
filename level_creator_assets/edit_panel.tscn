@@ -69,7 +69,6 @@ alignment = 1
 
 [node name="CheckBox" type="CheckBox" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer4"]
 layout_mode = 2
-button_pressed = true
 text = "Can Collect Stars"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/TabContainer/Object/vbox"]

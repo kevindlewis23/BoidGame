@@ -50,6 +50,11 @@ func _ready() -> void:
 		can_move_checkbox.button_pressed = false
 	else:
 		can_collect_stars_box = can_collect_stars_box_container.get_child(0)
+		can_collect_stars_box.toggled.connect(func (pressed):
+			var color = Constants.player_boid_color if pressed else Color.WHITE
+			object.get_child(0).get_child(0).get_child(0).color = color
+		)
+		can_collect_stars_box.toggled.emit(can_collect_stars_box.button_pressed)
 	
 	# Set bounds
 	x_position.min_value = 0
