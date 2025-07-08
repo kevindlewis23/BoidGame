@@ -94,6 +94,21 @@ func _input( event ):
 			if FileAccess.file_exists(Constants.level_creator_tmp_file_path):
 				DirAccess.remove_absolute(Constants.level_creator_tmp_file_path)
 			get_tree().reload_current_scene()
+		elif event.is_pressed() and event.keycode == KEY_ESCAPE:
+			# Save the state to the temp file
+			save_state_to_file_path(Constants.level_creator_tmp_file_path)
+			# Go to the level select scene
+			get_tree().change_scene_to_file("res://level_select.tscn")
+		elif event.is_pressed() and event.keycode == KEY_L and event.is_command_or_control_pressed():
+			# Load a level from a file
+			var file_dialog = FileDialog.new()
+			file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+			file_dialog.access = FileDialog.ACCESS_FILESYSTEM
+			file_dialog.filters = ["*.json"]
+			file_dialog.current_file = "level.json"
+			add_child(file_dialog)
+			file_dialog.popup_centered()
+			file_dialog.file_selected.connect(load_level)
 			
 
 func save_state() -> Array:

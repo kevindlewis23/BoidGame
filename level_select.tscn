@@ -9,7 +9,7 @@ bg_color = Color(0.0603284, 0.160246, 0.538213, 0.501961)
 [sub_resource type="Theme" id="Theme_vomi7"]
 default_font_size = 30
 
-[node name="Control" type="Control" node_paths=PackedStringArray("start_button", "option_select")]
+[node name="Control" type="Control" node_paths=PackedStringArray("start_button", "create_level_button", "load_level_button", "instructions_button", "option_select")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,8 +18,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_05pd3")
 start_button = NodePath("Panel/Button")
+create_level_button = NodePath("Panel/Button2")
+load_level_button = NodePath("Panel/Button3")
+instructions_button = NodePath("Panel/Button4")
 option_select = NodePath("Panel/OptionButton")
-num_levels = 14
+num_levels = 16
 
 [node name="Boids" parent="." instance=ExtResource("10_05pd3")]
 
@@ -31,10 +34,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_vomi7")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 672.0
-offset_top = 210.0
-offset_right = 1316.0
-offset_bottom = 724.0
+offset_left = 674.0
+offset_top = 158.0
+offset_right = 1318.0
+offset_bottom = 922.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
@@ -62,3 +65,30 @@ offset_right = 478.0
 offset_bottom = 392.0
 theme_override_font_sizes/font_size = 48
 text = "Start"
+
+[node name="Button2" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 178.0
+offset_top = 414.0
+offset_right = 479.0
+offset_bottom = 496.0
+theme_override_font_sizes/font_size = 48
+text = "Create"
+
+[node name="Button3" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 519.0
+offset_right = 490.0
+offset_bottom = 601.0
+theme_override_font_sizes/font_size = 48
+text = "Load"
+
+[node name="Button4" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 628.0
+offset_right = 491.0
+offset_bottom = 710.0
+theme_override_font_sizes/font_size = 48
+text = "Instructions"

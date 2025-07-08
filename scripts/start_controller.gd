@@ -33,7 +33,8 @@ func _unhandled_input(event):
 		if event.pressed and event.keycode == KEY_R:
 			reset()
 		elif event.pressed and event.keycode == KEY_ESCAPE:
-			get_tree().quit()
+			# get_tree().quit()
+			leave_to_home()
 		elif event.pressed and event.keycode == KEY_Q:
 			leave_to_home()
 		elif (event.pressed and 
