@@ -6,6 +6,8 @@ extends BaseButton
 static var Instance : StartController
 
 var path_scene : PackedScene = load("res://misc_objects/path.tscn")
+# Static so it stores over multiple levels
+static var extras_visibility : bool = false
 
 func _ready():
 	Instance = self
@@ -55,9 +57,14 @@ func _unhandled_input(event):
 			(event.keycode == KEY_SPACE or event.keycode == KEY_ENTER) 
 			and not BoidsController.Instance.running):
 			start()
-		elif event.pressed and event.keycode == KEY_P:
+		elif event.pressed and event.keycode == KEY_E:
+			# Toggle the visibility of the paths
+			extras_visibility = not extras_visibility
 			for path in get_tree().get_nodes_in_group("paths"):
-				path.visible = not path.visible
+				path.visible = extras_visibility
+			# Maybe show/hide the last positions parent (assuming we are not currently running the simulation)
+			if moving_objects_parent.visible:
+				last_positions_parent.visible = extras_visibility
 
 
 func reset():
@@ -70,7 +77,7 @@ func reset():
 		star.show()
 	show()
 	moving_objects_parent.show()
-	last_positions_parent.show()
+	last_positions_parent.visible = extras_visibility
 
 func leave_to_home():
 	get_tree().change_scene_to_file(LevelInstanceProps.scene_to_return_to)

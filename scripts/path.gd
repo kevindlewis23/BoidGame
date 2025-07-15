@@ -4,8 +4,7 @@ class_name Path
 var points : Array = []
 
 func _ready() -> void:
-	# Set z index to -1
-	z_index = -2
+	z_index = -1
 
 func _process(_delta: float) -> void:
 	# Update the path every frame

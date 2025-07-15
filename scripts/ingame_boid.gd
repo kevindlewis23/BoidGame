@@ -27,6 +27,7 @@ func _ready():
 							SCENE_BOTTOM - SCENE_TOP + 2 * lose_margin)
 	path = load("res://misc_objects/path.tscn").instantiate() as Path
 	get_tree().root.get_child(0).add_child(path)
+	path.visible = StartController.Instance.extras_visibility
 
 func _exit_tree() -> void:
 	# Move path
