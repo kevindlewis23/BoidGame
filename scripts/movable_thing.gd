@@ -117,9 +117,11 @@ func _process(_delta):
 			look_at_segment.add_point(local_mouse_position)
 		else:
 			look_at_segment = Line2D.new()
-			look_at_segment.width = 2
+			look_at_segment.width = 3
 			look_at_segment.add_point(obj_center)
 			look_at_segment.add_point(local_mouse_position)
+			look_at_segment.antialiased = true
+			look_at_segment.z_index = -1
 			add_child(look_at_segment)
 
 		# Try to rotate
