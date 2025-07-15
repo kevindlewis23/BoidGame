@@ -7,7 +7,7 @@ static var Instance : StartController
 
 var path_scene : PackedScene = load("res://misc_objects/path.tscn")
 # Static so it stores over multiple levels
-static var extras_visibility : bool = false
+static var extras_visibility : bool = true
 
 func _ready():
 	Instance = self
