@@ -5,6 +5,7 @@
 [node name="Node2D" type="Node2D"]
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+antialiased = true
 polygon = PackedVector2Array(-24, -24, 30, 0, -24, 24, -10, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

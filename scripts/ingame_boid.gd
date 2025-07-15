@@ -9,6 +9,7 @@ extends Boid
 
 # Distance 
 @export var lose_margin : float = 200
+var path : Path
 
 var star_count = 0
 var must_be_in_area : Rect2
@@ -24,6 +25,13 @@ func _ready():
 	must_be_in_area = Rect2(SCENE_LEFT -lose_margin, SCENE_TOP-lose_margin,
 							SCENE_RIGHT - SCENE_LEFT + 2 * lose_margin,
 							SCENE_BOTTOM - SCENE_TOP + 2 * lose_margin)
+	path = load("res://misc_objects/path.tscn").instantiate() as Path
+	get_tree().root.get_child(0).add_child(path)
+
+func _exit_tree() -> void:
+	# Move path
+	get_tree().root.get_child(0).remove_child(path)
+	StartController.Instance.last_positions_parent.add_child(path)
 	
 func collide(other_collider : Area2D):
 	var other_object = other_collider.get_parent()
@@ -46,6 +54,11 @@ func _physics_process(_delta : float):
 func _draw() -> void:
 	if is_main_boid:
 		draw_circle(Vector2.ZERO, VISION_RADIUS, Color(1,1,1,.015))
+	
+# Overridden from Boid
+func calc_next_position_and_angle(delta: float) -> void:
+	super.calc_next_position_and_angle(delta)
+	path.points.append(position)
 
 func collide_with_star(star : Node2D):
 	if is_main_boid:

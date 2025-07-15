@@ -9,7 +9,8 @@ Try to collect all the stars!
 
 ## Other controls
 Press `r` to reset while the simulation is running  
-Press `q` or `ESCAPE` to leave
+Press `q` or `ESCAPE` to leave  
+Press `p` to show or hide boid paths
 
 # Level creator controls
 Right click on empty space to create a new object. You can set the starting place as well as the bounding box for the object, which defines where the player is allowed to move the object.  

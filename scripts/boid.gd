@@ -179,3 +179,6 @@ func clamp_vector(vec : Vector2, min_length: float, max_length : float) -> Vecto
 	if vec_length < min_length:
 		return vec * min_length/vec_length
 	return vec
+
+# func clear_position_history():
+	# position_history.clear()

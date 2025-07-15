@@ -5,6 +5,8 @@ extends BaseButton
 @export var last_positions_parent : Control
 static var Instance : StartController
 
+var path_scene : PackedScene = load("res://misc_objects/path.tscn")
+
 func _ready():
 	Instance = self
 	pressed.connect(start)
@@ -53,6 +55,9 @@ func _unhandled_input(event):
 			(event.keycode == KEY_SPACE or event.keycode == KEY_ENTER) 
 			and not BoidsController.Instance.running):
 			start()
+		elif event.pressed and event.keycode == KEY_P:
+			for path in get_tree().get_nodes_in_group("paths"):
+				path.visible = not path.visible
 
 
 func reset():
