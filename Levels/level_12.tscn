@@ -13,7 +13,16 @@ subpixel_positioning = 0
 
 [node name="Level" type="Node2D"]
 
-[node name="Start_button" type="Button" parent="." node_paths=PackedStringArray("moving_objects_parent")]
+[node name="Last_positions" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0.2)
+z_index = -1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1934.0
+offset_bottom = 1073.0
+mouse_filter = 2
+
+[node name="Start_button" type="Button" parent="." node_paths=PackedStringArray("moving_objects_parent", "last_positions_parent")]
 offset_left = 1752.0
 offset_top = 15.0
 offset_right = 1894.0
@@ -23,6 +32,7 @@ theme_override_font_sizes/font_size = 32
 text = "Start"
 script = ExtResource("1_7dtl5")
 moving_objects_parent = NodePath("../Moving_objects")
+last_positions_parent = NodePath("../Last_positions")
 metadata/_edit_use_anchors_ = true
 
 [node name="Moving_objects" type="Node2D" parent="."]
@@ -49,7 +59,6 @@ offset_left = 940.0
 offset_top = 520.0
 offset_right = 980.0
 offset_bottom = 560.0
-metadata/_edit_use_anchors_ = true
 
 [node name="Polygon2D" parent="Moving_objects/MovableRepeller2" index="1"]
 polygon = PackedVector2Array(0, 0, 1860, 0, 1860, 1020, 0, 1020)

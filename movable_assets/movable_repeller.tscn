@@ -20,6 +20,7 @@ offset_right = 125.0
 offset_bottom = 110.0
 script = ExtResource("3_yp4ui")
 child_rotator = NodePath("Node2D")
+metadata/_edit_use_anchors_ = true
 
 [node name="Node2D" type="Node2D" parent="ReferenceRect"]
 position = Vector2(20, 20)

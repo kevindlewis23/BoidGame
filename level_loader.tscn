@@ -13,7 +13,16 @@ script = ExtResource("1_ox13j")
 moving_objects_parent = NodePath("Moving_objects")
 where_to_place_stars = NodePath(".")
 
-[node name="Start_button" type="Button" parent="." node_paths=PackedStringArray("moving_objects_parent")]
+[node name="Last_positions" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0.2)
+z_index = -1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1934.0
+offset_bottom = 1073.0
+mouse_filter = 2
+
+[node name="Start_button" type="Button" parent="." node_paths=PackedStringArray("moving_objects_parent", "last_positions_parent")]
 offset_left = 1752.0
 offset_top = 15.0
 offset_right = 1894.0
@@ -23,6 +32,7 @@ theme_override_font_sizes/font_size = 32
 text = "Start"
 script = ExtResource("2_73jjw")
 moving_objects_parent = NodePath("../Moving_objects")
+last_positions_parent = NodePath("../Last_positions")
 
 [node name="Moving_objects" type="Node2D" parent="."]
 

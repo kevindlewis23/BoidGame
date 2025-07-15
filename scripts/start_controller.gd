@@ -2,6 +2,7 @@ class_name StartController
 extends BaseButton
 
 @export var moving_objects_parent : Node2D
+@export var last_positions_parent : Control
 static var Instance : StartController
 
 func _ready():
@@ -13,9 +14,19 @@ func start():
 	# Fist, find all movable object
 	var movable_things = get_tree().get_nodes_in_group("movable_things")
 	# Start them all
-	
+	if last_positions_parent:
+		# Remove all children from the last positions parent
+		for child in last_positions_parent.get_children():
+			child.queue_free()
 	for thing in movable_things:
 		var g_transform = thing.object_to_replace_on_start.global_transform
+		if last_positions_parent:
+			# Copy the sprite into the last positions parent
+			var old_sprite_obj = thing.moving_object_bounding_box.get_child(0).get_child(0)
+			var sprite_obj = old_sprite_obj.duplicate()
+			sprite_obj.global_transform = old_sprite_obj.global_transform
+			last_positions_parent.add_child(sprite_obj)
+
 		# Instantiate the new object in the right place
 		var new_obj = thing.object_to_replace_with.instantiate()
 		
@@ -25,6 +36,7 @@ func start():
 			IngameBoid.num_main_boids += 1
 	moving_objects_parent.hide()
 	hide()
+	last_positions_parent.hide()
 	BoidsController.Instance.start()
 
 # Reset on pressing r
@@ -53,6 +65,7 @@ func reset():
 		star.show()
 	show()
 	moving_objects_parent.show()
+	last_positions_parent.show()
 
 func leave_to_home():
 	get_tree().change_scene_to_file(LevelInstanceProps.scene_to_return_to)
