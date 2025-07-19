@@ -38,6 +38,7 @@ stars=""
 zappers=""
 movable_things_that_definitely_dont_rotate=""
 paths=""
+predator_boids=""
 
 [gui]
 

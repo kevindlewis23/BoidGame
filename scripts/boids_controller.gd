@@ -14,6 +14,9 @@ static var Instance : BoidsController
 var frame_number = 0
 var obstacles : Array = []
 var boids: Array = []
+var predators: Array = []
+var obstacles_and_predators: Array = []
+var boids_and_predators: Array = []
 
 var running = false
 
@@ -25,6 +28,11 @@ func _ready():
 func start():
 	boids = get_tree().get_nodes_in_group("boids")
 	obstacles = get_tree().get_nodes_in_group("obstacles")
+	predators = get_tree().get_nodes_in_group("predator_boids")
+
+	obstacles_and_predators = obstacles + predators
+	boids_and_predators = boids + predators
+	frame_number = 0
 	running = true
 
 # On fixed update
@@ -45,11 +53,27 @@ func _physics_process(delta: float) -> void:
 
 func physics_tick(delta : float) -> void:
 	# Calculate all the velocities first before moving the boids, for determinism
-	for boid in boids:
-		boid.calc_velocity(delta, boids, obstacles)
-	for boid in boids:
+	for boid in boids_and_predators:
+		boid.calc_velocity(delta, boids, obstacles_and_predators)
+	for boid in boids_and_predators:
 		boid.calc_next_position_and_angle(delta)
 
 func lerp_all_boids(lerp_number: int):
-	for boid in boids:
+	for boid in boids_and_predators:
 		boid.lerp_to_new_position_and_angle(lerp_number)
+
+func set_speed(speed: int):
+	# Setting the simulation speed but from a different way of representing speed
+	# 0 is normal, -1 is half, 1 is double, etc
+	if speed == 0:
+		SIMULATION_SPEED = 1
+		FAST_FORWARD = true
+		print("1x speed")
+	elif speed < 0:
+		SIMULATION_SPEED = -speed + 1
+		FAST_FORWARD = false
+		print("%.2f speed" % (1.0 / SIMULATION_SPEED))
+	else:
+		SIMULATION_SPEED = speed + 1
+		FAST_FORWARD = true
+		print("%dx speed" % SIMULATION_SPEED)

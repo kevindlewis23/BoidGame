@@ -13,6 +13,10 @@ func _ready():
 	Instance = self
 	pressed.connect(start)
 
+# Current simulation speed
+var cur_speed = 0
+var max_speed = 3
+
 func start():
 	IngameBoid.num_main_boids = 0
 	# Fist, find all movable object
@@ -65,6 +69,17 @@ func _unhandled_input(event):
 			# Maybe show/hide the last positions parent (assuming we are not currently running the simulation)
 			if moving_objects_parent.visible:
 				last_positions_parent.visible = extras_visibility
+		elif event.pressed and event.is_command_or_control_pressed() and event.keycode == KEY_RIGHT:
+			# Increase speed
+			if cur_speed < max_speed:
+				cur_speed += 1
+				BoidsController.Instance.set_speed(cur_speed)
+		elif event.pressed and event.is_command_or_control_pressed() and event.keycode == KEY_LEFT:
+			# Decrease speed
+			if cur_speed > -max_speed:
+				cur_speed -= 1
+				BoidsController.Instance.set_speed(cur_speed)
+		
 
 
 func reset():

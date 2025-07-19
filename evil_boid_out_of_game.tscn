@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://daowcgnsjdjwv"]
+
+[ext_resource type="Script" uid="uid://cg0jrbhtb3wj2" path="res://scripts/boid.gd" id="1_malay"]
+[ext_resource type="PackedScene" uid="uid://dth47xdgohkja" path="res://sprites/boid_sprite.tscn" id="2_eq1by"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xur1n"]
+radius = 34.0
+
+[node name="Boid" type="Node2D" groups=["predator_boids"]]
+script = ExtResource("1_malay")
+MAX_SPEED = 800.0
+MAX_ACCELERATION = 1500.0
+VISION_RADIUS = 350.0
+SEPARATION = 0.0
+ALIGNMENT = 0.1
+COHESION = 1.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_xur1n")
+
+[node name="Node2D" parent="Area2D" instance=ExtResource("2_eq1by")]
+
+[node name="Polygon2D" parent="Area2D/Node2D" index="0"]
+color = Color(1, 0, 0, 1)
+
+[editable path="Area2D/Node2D"]

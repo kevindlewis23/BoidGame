@@ -11,11 +11,13 @@ extends Boid
 @export var lose_margin : float = 200
 var path : Path
 
-var star_count = 0
+# Static in case there are multiple boids that can collect stars
+static var star_count = 0
 var must_be_in_area : Rect2
 
 static var num_main_boids = 1
 var is_dead : bool = false
+
 
 func _ready():
 	super._ready()
