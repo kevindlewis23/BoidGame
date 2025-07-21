@@ -9,7 +9,7 @@ bg_color = Color(0.0603284, 0.160246, 0.538213, 0.501961)
 [sub_resource type="Theme" id="Theme_vomi7"]
 default_font_size = 30
 
-[node name="Control" type="Control" node_paths=PackedStringArray("start_button", "create_level_button", "load_level_button", "instructions_button", "option_select")]
+[node name="Control" type="Control" node_paths=PackedStringArray("start_button", "create_level_button", "load_level_button", "instructions_button", "option_select", "quit_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +22,7 @@ create_level_button = NodePath("Panel/Button2")
 load_level_button = NodePath("Panel/Button3")
 instructions_button = NodePath("Panel/Button4")
 option_select = NodePath("Panel/OptionButton")
+quit_button = NodePath("Panel/Button5")
 num_levels = 17
 
 [node name="Boids" parent="." instance=ExtResource("10_05pd3")]
@@ -34,10 +35,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_vomi7")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 674.0
-offset_top = 158.0
-offset_right = 1318.0
-offset_bottom = 922.0
+offset_left = 671.0
+offset_top = 113.0
+offset_right = 1315.0
+offset_bottom = 986.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
@@ -77,18 +78,27 @@ text = "Create"
 
 [node name="Button3" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 189.0
-offset_top = 519.0
-offset_right = 490.0
-offset_bottom = 601.0
+offset_left = 177.0
+offset_top = 514.0
+offset_right = 478.0
+offset_bottom = 596.0
 theme_override_font_sizes/font_size = 48
 text = "Load"
 
 [node name="Button4" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 190.0
-offset_top = 628.0
-offset_right = 491.0
-offset_bottom = 710.0
+offset_left = 174.0
+offset_top = 614.0
+offset_right = 475.0
+offset_bottom = 696.0
 theme_override_font_sizes/font_size = 48
 text = "Instructions"
+
+[node name="Button5" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 711.0
+offset_right = 477.0
+offset_bottom = 793.0
+theme_override_font_sizes/font_size = 48
+text = "Quit"

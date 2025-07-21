@@ -5,6 +5,7 @@ extends Node
 @export var load_level_button : Button
 @export var instructions_button : Button
 @export var option_select : OptionButton
+@export var quit_button : Button
 @export var num_levels : int = 9
 
 var level_loader : PackedScene = load("res://level_loader.tscn")
@@ -17,6 +18,7 @@ func _ready():
 	create_level_button.pressed.connect(func(): get_tree().change_scene_to_file("res://level_creator.tscn"))
 	load_level_button.pressed.connect(load_level)
 	instructions_button.pressed.connect(func(): OS.shell_open("https://github.com/kevindlewis23/BoidGame/blob/main/README.md"))
+	quit_button.pressed.connect(func(): get_tree().quit())
 
 func start_level():
 	# Get the level
