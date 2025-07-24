@@ -13,6 +13,8 @@ const OBJECT_SCENES = {
 }
 
 const player_boid_scene = preload("res://game_objects/player_boid.tscn") as PackedScene
+const predator_boid_scene = preload("res://game_objects/evil_boid.tscn") as PackedScene
+const predator_player_boid_scene = preload("res://game_objects/evil_player_boid.tscn") as PackedScene
 
 func _ready() -> void:
 	var level_file_path = LevelInstanceProps.level_file_path
@@ -67,10 +69,23 @@ func load_level_from_array(level_data: Array) -> void:
 
 			movable_object.can_move = item["object"].get("can_move", false)
 			movable_object.can_rotate = item["object"].get("can_rotate", false)
-			if obj_type == ObjectType.BOID and item["object"].get("can_collect_stars",false):
-				movable_object.object_to_replace_with = player_boid_scene
+			if obj_type == ObjectType.BOID:
+				var can_collect_stars = item["object"].get("can_collect_stars", false)
+				var is_predator = item["object"].get("is_predator", false)
+				var color = Color.WHITE
+				if can_collect_stars:
+					if is_predator:
+						movable_object.object_to_replace_with = predator_player_boid_scene
+						color = Constants.predator_player_boid_color
+					else:
+						movable_object.object_to_replace_with = player_boid_scene
+						color = Constants.player_boid_color
+				else:
+					if is_predator:
+						movable_object.object_to_replace_with = predator_boid_scene
+						color = Constants.predator_boid_color
 				# Set the color, this will probably be temporary until the sprites are different
-				movable_object.moving_object_bounding_box.get_child(0).get_child(0).get_child(0).color = Constants.player_boid_color
+				movable_object.moving_object_bounding_box.get_child(0).get_child(0).get_child(0).color = color
 
 			moving_objects_parent.add_child(movable_object)
 			

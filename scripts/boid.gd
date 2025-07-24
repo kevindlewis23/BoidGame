@@ -13,6 +13,8 @@ extends Node2D
 # Boid rule stuff
 # px
 @export var VISION_RADIUS : float = 200
+# degrees
+@export var VISION_ANGLE : float = 360
 @export var SEPARATION_DISTANCE: float = 100
 @export var OBSTACLE_AVOID_DISTANCE : float = 200
 @export var WALL_AVOID_DISTANCE : float = 300
@@ -35,6 +37,8 @@ extends Node2D
 const COHESION_BASE_FACTOR = .04
 const SEPARATION_BASE_FACTOR = 80
 const ALIGNMENT_BASE_FACTOR = .3
+
+var vision_angle_rad = VISION_ANGLE * PI / 180.0
 
 
 const SCENE_LEFT = 0
@@ -105,7 +109,15 @@ func get_close_elements(elements : Array, radius : float) -> Array:
 			continue
 		var distance_sqr = position.distance_squared_to(element.global_position)
 		if distance_sqr < sqr_radius:
-			elements_in_radius.append(element)
+			var should_add = true
+			if VISION_ANGLE != 360:
+				# Check if the element is within the vision angle by comparing the vector pointing in the forward direction to the vector pointing to the element
+				var to_element = element.global_position - global_position
+				var forward = Vector2.RIGHT.rotated(rotation)
+				if absf(forward.angle_to(to_element)) > vision_angle_rad / 2:
+					should_add = false
+			if should_add:
+				elements_in_radius.append(element)
 	return elements_in_radius
 
 func cohere(other_boids) -> Vector2:

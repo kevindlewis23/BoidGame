@@ -26,6 +26,7 @@ extends Control
 
 
 var can_collect_stars_box : CheckBox
+var is_predator_box : CheckBox
 const dist_from_object : float = 40.0
 
 
@@ -51,11 +52,19 @@ func _ready() -> void:
 	else:
 		can_collect_stars_box = can_collect_stars_box_container.get_child(0)
 		can_collect_stars_box.toggled.connect(func (pressed):
-			var color = Constants.player_boid_color if pressed else Color.WHITE
-			object.get_child(0).get_child(0).get_child(0).color = color
+			set_boid_color(pressed, is_predator_box.button_pressed)
+			# var color = Constants.player_boid_color if pressed else Color.WHITE
+			# object.get_child(0).get_child(0).get_child(0).color = color
 		)
-		can_collect_stars_box.toggled.emit(can_collect_stars_box.button_pressed)
-	
+
+		is_predator_box = can_collect_stars_box_container.get_child(1)
+		is_predator_box.toggled.connect(func (pressed):
+			set_boid_color(can_collect_stars_box.button_pressed, pressed)
+			# var color = Constants.predator_boid_color if pressed else Color.WHITE
+			# object.get_child(0).get_child(0).get_child(0).color = color
+		)
+
+		is_predator_box.toggled.emit(is_predator_box.button_pressed)
 	# Set bounds
 	x_position.min_value = 0
 	y_position.min_value = 0
@@ -103,6 +112,21 @@ func _ready() -> void:
 	)
 
 	delete_button.pressed.connect(remove_this)
+
+
+func set_boid_color(can_collect_stars : bool, is_predator : bool) -> void:
+	var color
+	if can_collect_stars:
+		if is_predator:
+			color = Constants.predator_player_boid_color
+		else:
+			color = Constants.player_boid_color
+	else:
+		if is_predator:
+			color = Constants.predator_boid_color
+		else:
+			color = Color.WHITE
+	object.get_child(0).get_child(0).get_child(0).color = color
 
 
 func resize_box_from_val(from_right : bool, from_bottom : bool) -> void:

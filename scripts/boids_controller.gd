@@ -62,6 +62,15 @@ func lerp_all_boids(lerp_number: int):
 	for boid in boids_and_predators:
 		boid.lerp_to_new_position_and_angle(lerp_number)
 
+func remove_boid(boid: Node):
+	if boid in boids:
+		boids.erase(boid)
+		boids_and_predators.erase(boid)
+	elif boid in predators:
+		predators.erase(boid)
+		obstacles_and_predators.erase(boid)
+		boids_and_predators.erase(boid)
+
 func set_speed(speed: int):
 	# Setting the simulation speed but from a different way of representing speed
 	# 0 is normal, -1 is half, 1 is double, etc

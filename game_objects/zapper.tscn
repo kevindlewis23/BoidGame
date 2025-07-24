@@ -24,6 +24,7 @@ polygon = PackedVector2Array(-5, -5, 5, -5, 5, 5, -5, 5)
 
 [node name="Electricity" type="Area2D" parent="."]
 collision_layer = 4
+collision_mask = 9
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Electricity"]

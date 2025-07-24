@@ -42,7 +42,8 @@ func collide(other_collider : Area2D):
 		collide_with_star(other_object)
 	elif other_object.is_in_group("zappers"):
 		collide_with_zapper(other_object)
-		
+	elif other_object.is_in_group("predator_boids") and is_in_group("boids"):
+		collide_with_predator(other_object)		
 
 func _physics_process(_delta : float):
 	# Lose if you are too far out of the bounds
@@ -53,11 +54,18 @@ func _physics_process(_delta : float):
 		num_main_boids -= 1
 		if num_main_boids <= 0:
 			lose("You swam out of the map!!")
+		else:
+			remove_this()
 
 func _draw() -> void:
 	if is_main_boid:
 		draw_circle(Vector2.ZERO, VISION_RADIUS, Color(1,1,1,.015))
+
+func remove_this():
+	BoidsController.Instance.remove_boid(self)
+	queue_free()
 	
+
 # Overridden from Boid
 func calc_next_position_and_angle(delta: float) -> void:
 	super.calc_next_position_and_angle(delta)
@@ -72,6 +80,14 @@ func collide_with_star(star : Node2D):
 
 func collide_with_zapper(_zapper : Node2D):
 	lose("You got zapped!")
+
+func collide_with_predator(_predator : Node2D):
+	is_dead = true
+	remove_this()
+	if is_main_boid:
+		num_main_boids -= 1
+		if num_main_boids <= 0:
+			lose("You got eaten!")
 
 func win():
 	print("You win!!!!!!!")

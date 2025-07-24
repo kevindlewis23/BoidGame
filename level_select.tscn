@@ -23,7 +23,7 @@ load_level_button = NodePath("Panel/Button3")
 instructions_button = NodePath("Panel/Button4")
 option_select = NodePath("Panel/OptionButton")
 quit_button = NodePath("Panel/Button5")
-num_levels = 17
+num_levels = 21
 
 [node name="Boids" parent="." instance=ExtResource("10_05pd3")]
 

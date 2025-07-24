@@ -69,7 +69,11 @@ alignment = 1
 
 [node name="CheckBox" type="CheckBox" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer4"]
 layout_mode = 2
-text = "Can Collect Stars"
+text = "Collects Stars"
+
+[node name="CheckBox2" type="CheckBox" parent="PanelContainer/TabContainer/Object/vbox/HBoxContainer4"]
+layout_mode = 2
+text = "Is Predator"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/TabContainer/Object/vbox"]
 layout_mode = 2

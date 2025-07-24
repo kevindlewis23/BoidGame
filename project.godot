@@ -59,6 +59,7 @@ left_click={
 2d_physics/layer_1="Boids"
 2d_physics/layer_2="Stars"
 2d_physics/layer_3="Obstacles"
+2d_physics/layer_4="Predators"
 
 [rendering]
 

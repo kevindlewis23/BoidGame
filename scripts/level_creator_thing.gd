@@ -171,6 +171,7 @@ func save_state() -> Dictionary:
 	if object_type == ObjectType.BOID:
 		state["object"]["can_rotate"] = control_box.can_rotate_checkbox.button_pressed
 		state["object"]["can_collect_stars"] = control_box.can_collect_stars_box.button_pressed
+		state["object"]["is_predator"] = control_box.is_predator_box.button_pressed
 
 	return state
 
@@ -196,6 +197,8 @@ static func load_state(state: Dictionary) -> LevelCreatorThing:
 			new_object.moving_object_bounding_box.rotate_to(target_rotation, huge_box)
 			new_object.control_box.can_rotate_checkbox.button_pressed = state["object"]["can_rotate"]
 			new_object.control_box.can_collect_stars_box.button_pressed = state["object"]["can_collect_stars"]
+			# Supporting levels from before the predator boids were added
+			new_object.control_box.is_predator_box.button_pressed = state["object"].get("is_predator", false)
 		new_object.remove_control_box.emit()
 	)
 

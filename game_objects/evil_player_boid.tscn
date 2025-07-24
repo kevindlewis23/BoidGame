@@ -1,14 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://282cvnrpjtsd"]
+[gd_scene load_steps=4 format=3 uid="uid://chcoblagbv7xa"]
 
-[ext_resource type="Script" uid="uid://dgmejgi7ulemw" path="res://scripts/ingame_boid.gd" id="1_jyd7b"]
-[ext_resource type="PackedScene" uid="uid://dth47xdgohkja" path="res://sprites/boid_sprite.tscn" id="2_l74ee"]
+[ext_resource type="Script" uid="uid://dgmejgi7ulemw" path="res://scripts/ingame_boid.gd" id="1_j2mmd"]
+[ext_resource type="PackedScene" uid="uid://dth47xdgohkja" path="res://sprites/boid_sprite.tscn" id="2_0xm73"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xur1n"]
 radius = 34.0
 
 [node name="Boid" type="Node2D" node_paths=PackedStringArray("collider") groups=["predator_boids"]]
-script = ExtResource("1_jyd7b")
-is_main_boid = false
+script = ExtResource("1_j2mmd")
 collider = NodePath("Area2D")
 MAX_SPEED = 600.0
 MAX_ACCELERATION = 2000.0
@@ -26,9 +25,9 @@ collision_mask = 7
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_xur1n")
 
-[node name="Node2D" parent="Area2D" instance=ExtResource("2_l74ee")]
+[node name="Node2D" parent="Area2D" instance=ExtResource("2_0xm73")]
 
 [node name="Polygon2D" parent="Area2D/Node2D" index="0"]
-color = Color(1, 0, 0, 1)
+color = Color(1, 0.6, 0, 1)
 
 [editable path="Area2D/Node2D"]
