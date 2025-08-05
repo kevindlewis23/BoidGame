@@ -2,6 +2,11 @@
 
 [node name="Node2D" type="Node2D"]
 
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(10, -4.142, 4.142, -10, -4.142, -10, -10, -4.142, -10, 4.142, -4.142, 10, 4.142, 10, 10, 4.142)
+
 [node name="Polygon2D2" type="Polygon2D" parent="."]
+visible = false
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)

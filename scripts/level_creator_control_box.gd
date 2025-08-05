@@ -29,6 +29,8 @@ var can_collect_stars_box : CheckBox
 var is_predator_box : CheckBox
 const dist_from_object : float = 40.0
 
+var some_child_has_focus : bool = false
+
 
 # Used for Level Creator state saving
 var ignore_value_changes : bool = false
@@ -37,6 +39,17 @@ var ignore_value_changes : bool = false
 var clicked_here : bool = false
 
 func _ready() -> void:
+	# Connect some signals so that the delete key doesn't delete the box if you're typing in a textbox
+	for textbox in [
+		x_position, y_position, rotation_box, box_left, box_top, box_right, box_bottom
+	]:
+		textbox.get_line_edit().focus_entered.connect(func () -> void:
+			some_child_has_focus = true
+		)
+		textbox.get_line_edit().focus_exited.connect(func () -> void:
+			some_child_has_focus = false
+		)
+
 	if not has_rotation:
 		can_rotate_checkbox.hide()
 		rotation_container.hide()
@@ -216,7 +229,7 @@ func _input(event: InputEvent) -> void:
 		if event.pressed and event.keycode == KEY_ESCAPE:
 			hide_if_not_focused()
 		elif event.pressed and event.keycode == KEY_DELETE:
-			if visible:
+			if visible and not some_child_has_focus:
 				remove_this()
 
 func remove_this():

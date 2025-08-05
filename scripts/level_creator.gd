@@ -24,6 +24,7 @@ var level_loader : PackedScene = load("res://level_loader.tscn")
 func _ready():
 	viewport = get_viewport()
 	pause_state_changed = false
+	right_click_captured = false
 	
 	state_changed.connect(_on_state_changed)
 	instance = self

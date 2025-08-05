@@ -1,3 +1,4 @@
+class_name LevelSelector
 extends Node
 
 @export var start_button : Button
@@ -6,9 +7,9 @@ extends Node
 @export var instructions_button : Button
 @export var option_select : OptionButton
 @export var quit_button : Button
-@export var num_levels : int = 9
+static var num_levels : int = 21
 
-var level_loader : PackedScene = load("res://level_loader.tscn")
+static var level_loader : PackedScene = load("res://level_loader.tscn")
 
 func _ready():
 	# Add all the options
@@ -21,23 +22,29 @@ func _ready():
 	quit_button.pressed.connect(func(): get_tree().quit())
 
 func start_level():
+	var level_number = option_select.get_selected_id() + 1
+	start_level_from_number(level_number, get_tree())
+	
+static func start_level_from_number(level_number: int, tree : SceneTree) -> void:
 	# Get the level
-	var level_name = "res://Levels/level_%d.tscn" % (option_select.get_selected_id() + 1)
+	var level_name = "res://Levels/level_%d.tscn" % (level_number)
+	LevelInstanceProps.level_number = level_number
 	# Make sure the file exists
 	if ResourceLoader.exists(level_name):
-		get_tree().change_scene_to_file(level_name)
+		tree.change_scene_to_file(level_name)
 	else:
 		# Check if it exists as a .json file
-		var json_name = "res://Levels/level_%d.json" % (option_select.get_selected_id() + 1)
+		var json_name = "res://Levels/level_%d.json" % (level_number)
 		if FileAccess.file_exists(json_name):
 			LevelInstanceProps.scene_to_return_to = "res://level_select.tscn"
 			LevelInstanceProps.level_file_path = json_name
 			# Start the level loader
-			get_tree().change_scene_to_packed(level_loader)
+			tree.change_scene_to_packed(level_loader)
 
 		else:
 			push_error("Level file does not exist: %s" % level_name)
 			return
+	
 	
 func load_level():
 	var file_dialog = FileDialog.new()
