@@ -28,9 +28,9 @@ Press `Ctrl/Cmd + y` to redo the last change
 This is made with Godot. It's my first time using Godot so please don't make fun of my code lol  
 
 # Current To Do's
- - Add more levels
+ - Add more levels (maybe)
  - Add sprites and make it all look better
  - Better instructions and explanations and stuff
- - Auto switch to next level instead of going back to the level creator
+ - Better level selector
  - Sound design
  - This game is almost deterministic, but technically depends on simulation speed. Boid movement is independent of simulation speed, but collisions are checked frame by frame, so collecting stars and stuff could depend on simulation speed.
