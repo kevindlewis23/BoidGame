@@ -81,7 +81,7 @@ rotation = -1.5708
 script = ExtResource("4_5730w")
 
 [node name="Star" parent="." instance=ExtResource("5_xxu04")]
-position = Vector2(1827, 530)
+position = Vector2(1827, 540)
 
 [editable path="Moving_objects/MovableBoid"]
 [editable path="Moving_objects/MovableBoid/ReferenceRect/Node2D/Node2D"]

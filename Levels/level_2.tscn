@@ -50,7 +50,7 @@ color = Color(0.670588, 0.952941, 0.996078, 1)
 script = ExtResource("4_pml6m")
 
 [node name="Star" parent="." instance=ExtResource("5_vltsr")]
-position = Vector2(1827, 549)
+position = Vector2(1827, 540)
 
 [node name="Star2" parent="." instance=ExtResource("5_vltsr")]
 position = Vector2(1123, 757)

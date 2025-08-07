@@ -50,7 +50,7 @@ color = Color(0.670588, 0.952941, 0.996078, 1)
 script = ExtResource("3_3mhv4")
 
 [node name="Star" parent="." instance=ExtResource("4_rf6l5")]
-position = Vector2(1827, 549)
+position = Vector2(1827, 540)
 
 [editable path="Moving_objects/MovableBoid"]
 [editable path="Moving_objects/MovableBoid/ReferenceRect/Node2D/Node2D"]

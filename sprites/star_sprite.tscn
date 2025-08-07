@@ -1,21 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://bqnakw3e2hf0m"]
 
-[sub_resource type="SystemFont" id="SystemFont_p57xy"]
-font_names = PackedStringArray("Arial")
-subpixel_positioning = 0
+[ext_resource type="Texture2D" uid="uid://bne07goaa3xx2" path="res://assets/star.png" id="1_sn2j4"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-clip_contents = false
-offset_left = -25.0
-offset_top = -45.0
-offset_right = 30.0
-offset_bottom = 28.0
-mouse_filter = 2
-theme_override_fonts/normal_font = SubResource("SystemFont_p57xy")
-theme_override_font_sizes/normal_font_size = 60
-text = "★"
-fit_content = true
-meta_underlined = false
-hint_underlined = false
+[node name="Star" type="Sprite2D" parent="."]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("1_sn2j4")

@@ -39,6 +39,9 @@ func _ready():
 	path.visible = StartController.Instance.extras_visibility
 
 func _exit_tree() -> void:
+	# Ignore if the scene is changing
+	if StartController.Instance.scene_is_changing:
+		return
 	# Move path
 	get_tree().current_scene.remove_child(path)
 	StartController.Instance.last_positions_parent.add_child(path)
@@ -108,12 +111,36 @@ func win():
 	has_won = true
 	# BoidsController.Instance.running = false
 	# Return to level creator if that is the scene to return to
-	if LevelInstanceProps.scene_to_return_to == "res://level_creator.tscn":
+	if LevelInstanceProps.level_number == 0:
 		StartController.Instance.leave_to_home.call_deferred()
 	else:
 		# Create the win screen
 		var win_screen_instance = win_screen.instantiate()
 		get_tree().current_scene.add_child(win_screen_instance)
+		# Add the level number to the list of passed levels
+		if not FileAccess.file_exists(Constants.passed_levels_file_path):
+			var file = FileAccess.open(Constants.passed_levels_file_path, FileAccess.WRITE)
+			file.store_line(JSON.stringify([LevelInstanceProps.level_number]))
+			file.close()
+		else:
+			var file = FileAccess.open(Constants.passed_levels_file_path, FileAccess.READ_WRITE)
+			var json_data = file.get_as_text()
+			var json = JSON.new()
+			var error = json.parse(json_data)
+			if error == OK:
+				var passed_levels = json.data
+				var level_has_been_passed = false
+				for level in passed_levels:
+					if level == LevelInstanceProps.level_number:
+						level_has_been_passed = true
+						break
+				if not level_has_been_passed:
+					passed_levels.append(LevelInstanceProps.level_number)
+					file.seek(0)
+					file.store_line(JSON.stringify(passed_levels))
+			else:
+				push_error("Failed to parse passed levels file: %s" % json.get_error_message())
+			file.close()
 
 func lose(reason : String):
 	if has_won:

@@ -9,6 +9,8 @@ var path_scene : PackedScene = load("res://misc_objects/path.tscn")
 # Static so it stores over multiple levels
 static var extras_visibility : bool = true
 
+var scene_is_changing : bool = false
+
 func _ready():
 	Instance = self
 	pressed.connect(start)
@@ -95,4 +97,6 @@ func reset():
 	last_positions_parent.visible = extras_visibility
 
 func leave_to_home():
+	scene_is_changing = true
+	set_deferred("scene_is_changing", false)
 	get_tree().change_scene_to_file(LevelInstanceProps.scene_to_return_to)

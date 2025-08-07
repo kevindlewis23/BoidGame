@@ -65,7 +65,7 @@ polygon = PackedVector2Array(0, 0, 1860, 0, 1860, 1020, 0, 1020)
 script = ExtResource("4_s3aiw")
 
 [node name="Star" parent="." instance=ExtResource("5_qcwlp")]
-position = Vector2(1827, 549)
+position = Vector2(1827, 540)
 
 [node name="Star4" parent="." instance=ExtResource("5_qcwlp")]
 position = Vector2(767, 49)

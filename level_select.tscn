@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://4440xs14saj6"]
+[gd_scene load_steps=6 format=3 uid="uid://4440xs14saj6"]
 
 [ext_resource type="Script" uid="uid://4pu37jx84f3n" path="res://scripts/level_selector.gd" id="1_05pd3"]
+[ext_resource type="Script" uid="uid://ba1av5tgx7frh" path="res://scripts/custom_options.gd" id="3_wevku"]
 [ext_resource type="PackedScene" uid="uid://c7dvc270m8scp" path="res://boids.tscn" id="10_05pd3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vomi7"]
@@ -21,7 +22,7 @@ start_button = NodePath("Panel/Button")
 create_level_button = NodePath("Panel/Button2")
 load_level_button = NodePath("Panel/Button3")
 instructions_button = NodePath("Panel/Button4")
-option_select = NodePath("Panel/OptionButton")
+option_select = NodePath("Panel/Control")
 quit_button = NodePath("Panel/Button5")
 
 [node name="Boids" parent="." instance=ExtResource("10_05pd3")]
@@ -48,7 +49,16 @@ offset_bottom = 164.0
 theme_override_font_sizes/normal_font_size = 48
 text = "Choose Level"
 
-[node name="OptionButton" type="OptionButton" parent="Panel"]
+[node name="Control" type="Control" parent="Panel" node_paths=PackedStringArray("option_button", "custom_popup", "item_list")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_wevku")
+option_button = NodePath("OptionButton")
+custom_popup = NodePath("OptionButton/Popup")
+item_list = NodePath("OptionButton/Popup/ItemList")
+
+[node name="OptionButton" type="OptionButton" parent="Panel/Control"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 194.0
@@ -56,6 +66,13 @@ offset_right = 463.0
 offset_bottom = 269.0
 theme = SubResource("Theme_vomi7")
 theme_override_font_sizes/font_size = 48
+
+[node name="Popup" type="Popup" parent="Panel/Control/OptionButton"]
+
+[node name="ItemList" type="ItemList" parent="Panel/Control/OptionButton/Popup"]
+offset_right = 40.0
+offset_bottom = 40.0
+auto_height = true
 
 [node name="Button" type="Button" parent="Panel"]
 layout_mode = 0

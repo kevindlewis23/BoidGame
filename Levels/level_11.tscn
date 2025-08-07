@@ -58,7 +58,7 @@ can_move = false
 script = ExtResource("4_wn6d5")
 
 [node name="Star8" parent="." instance=ExtResource("5_i2ob1")]
-position = Vector2(1695, 557)
+position = Vector2(1695, 540)
 
 [editable path="Moving_objects/MovableBoid"]
 [editable path="Moving_objects/MovableBoid/ReferenceRect/Node2D/Node2D"]

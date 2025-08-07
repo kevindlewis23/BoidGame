@@ -83,7 +83,7 @@ position = Vector2(700, 100)
 position = Vector2(700, 980)
 
 [node name="Star3" parent="." instance=ExtResource("5_krg5q")]
-position = Vector2(869, 515)
+position = Vector2(869, 540)
 
 [editable path="Moving_objects/MovableBoid"]
 [editable path="Moving_objects/MovableBoid/ReferenceRect/Node2D/Node2D"]

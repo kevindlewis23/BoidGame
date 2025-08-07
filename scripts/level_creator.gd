@@ -89,6 +89,7 @@ func _input( event ):
 			save_state_to_file_path(Constants.level_creator_tmp_file_path)
 			LevelInstanceProps.level_file_path = Constants.level_creator_tmp_file_path
 			LevelInstanceProps.scene_to_return_to = "res://level_creator.tscn"
+			LevelInstanceProps.level_number = 0
 			get_tree().change_scene_to_packed(level_loader)
 		elif event.is_pressed() and event.keycode == KEY_N and event.is_command_or_control_pressed() and event.shift_pressed:
 			# Delete the temp file and restart the scene
