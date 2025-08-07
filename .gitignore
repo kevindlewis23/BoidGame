@@ -17,4 +17,3 @@ mono_crash.*.json
 
 *.tmp
 dist
-game_data/*.json
