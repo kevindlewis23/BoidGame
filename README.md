@@ -27,6 +27,11 @@ Press `Ctrl/Cmd + y` to redo the last change
 # Coding stuff
 This is made with Godot. It's my first time using Godot so please don't make fun of my code lol  
 
+# Tools Used
+[Godot](https://godotengine.org/) for game engine
+[Font Awesome](https://fontawesome.com) for icons
+[LMMS](https://lmms.io/) for sound design
+
 # Current To Do's
  - Add more levels (maybe)
  - Add sprites and make it all look better

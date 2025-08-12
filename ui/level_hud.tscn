@@ -1,0 +1,233 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7o8fd37yaa5q"]
+
+[ext_resource type="Script" uid="uid://clhd5rdpooarh" path="res://scripts/hud_controller.gd" id="1_fi0pf"]
+[ext_resource type="FontFile" uid="uid://c30e0uk5lm80m" path="res://addons/fontawesome/fonts/fa-solid-900.woff2" id="2_v6q5q"]
+[ext_resource type="Script" uid="uid://dd457dwch1dt0" path="res://addons/fontawesome/FontAwesome.gd" id="3_fi0pf"]
+
+[node name="LevelHud" type="Control" node_paths=PackedStringArray("hud_bar", "start_button", "reset_button", "increase_speed_button", "decrease_speed_button", "leave_button", "sim_speed_label")]
+z_index = 5
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fi0pf")
+hud_bar = NodePath("TopBar")
+start_button = NodePath("TopBar/Start_button")
+reset_button = NodePath("TopBar/ResetButton")
+increase_speed_button = NodePath("TopBar/SpeedControl/Fast")
+decrease_speed_button = NodePath("TopBar/SpeedControl/Slow")
+leave_button = NodePath("TopBar/Return_button")
+sim_speed_label = NodePath("TopBar/SpeedControl/Speed")
+
+[node name="TopBar" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 90.0
+
+[node name="Label" type="Label" parent="TopBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "Level 1: Boids"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Start_button" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 1845.0
+offset_top = 15.0
+offset_right = 1905.0
+offset_bottom = 75.0
+tooltip_text = "Space / Enter"
+theme_override_font_sizes/font_size = 32
+
+[node name="FontAwesome" type="Label" parent="TopBar/Start_button"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_fi0pf")
+icon_size = 24
+icon_name = "play"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="ResetButton" type="Button" parent="TopBar"]
+visible = false
+layout_mode = 0
+offset_left = 1845.0
+offset_top = 15.0
+offset_right = 1905.0
+offset_bottom = 75.0
+tooltip_text = "R"
+theme_override_font_sizes/font_size = 32
+
+[node name="FontAwesome" type="Label" parent="TopBar/ResetButton"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_fi0pf")
+icon_size = 24
+icon_name = "stop"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="Return_button" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 75.0
+offset_bottom = 75.0
+tooltip_text = "Esc / Q"
+theme_override_font_sizes/font_size = 32
+
+[node name="FontAwesome" type="Label" parent="TopBar/Return_button"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_fi0pf")
+icon_size = 24
+icon_name = "arrow-left"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="Info_button" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 15.0
+offset_right = 150.0
+offset_bottom = 75.0
+tooltip_text = "i"
+theme_override_font_sizes/font_size = 32
+
+[node name="FontAwesome" type="Label" parent="TopBar/Info_button"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_fi0pf")
+icon_size = 24
+icon_name = "info"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="SpeedControl" type="Control" parent="TopBar"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_right = -110.0
+offset_bottom = 90.0
+grow_horizontal = 0
+
+[node name="Speed" type="Label" parent="TopBar/SpeedControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "1.00x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slow" type="Button" parent="TopBar/SpeedControl"]
+layout_mode = 2
+offset_top = 15.0
+offset_right = 60.0
+offset_bottom = 75.0
+tooltip_text = "Ctrl/Cmd + Left"
+
+[node name="FontAwesome" type="Label" parent="TopBar/SpeedControl/Slow"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_fi0pf")
+icon_size = 24
+icon_name = "backward"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="Fast" type="Button" parent="TopBar/SpeedControl"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -30.0
+offset_bottom = 30.0
+grow_horizontal = 0
+grow_vertical = 2
+tooltip_text = "Ctrl/Cmd + Right"
+
+[node name="FontAwesome" type="Label" parent="TopBar/SpeedControl/Fast"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_fi0pf")
+icon_size = 24
+icon_name = "forward"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"

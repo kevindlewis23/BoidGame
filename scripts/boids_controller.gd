@@ -71,18 +71,19 @@ func remove_boid(boid: Node):
 		obstacles_and_predators.erase(boid)
 		boids_and_predators.erase(boid)
 
-func set_speed(speed: int):
+func set_speed(speed: int) -> String:
 	# Setting the simulation speed but from a different way of representing speed
 	# 0 is normal, -1 is half, 1 is double, etc
+	# Return a string to display sim speed
 	if speed == 0:
 		SIMULATION_SPEED = 1
 		FAST_FORWARD = true
-		print("1x speed")
+		return "1x"
 	elif speed < 0:
 		SIMULATION_SPEED = -speed + 1
 		FAST_FORWARD = false
-		print("%.2f speed" % (1.0 / SIMULATION_SPEED))
+		return "%.2fx" % (1.0 / SIMULATION_SPEED)
 	else:
 		SIMULATION_SPEED = speed + 1
 		FAST_FORWARD = true
-		print("%dx speed" % SIMULATION_SPEED)
+		return "%.2fx" % SIMULATION_SPEED

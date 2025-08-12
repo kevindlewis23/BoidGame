@@ -20,7 +20,7 @@ var is_dead : bool = false
 
 static var objects_being_deleted : Array = []
 
-static var win_screen : PackedScene = load("res://game_objects/win_screen.tscn")
+static var win_screen : PackedScene = load("res://ui/win_screen.tscn")
 
 static var has_won : bool = false
 
@@ -36,15 +36,15 @@ func _ready():
 							SCENE_BOTTOM - SCENE_TOP + 2 * lose_margin)
 	path = load("res://misc_objects/path.tscn").instantiate() as Path
 	get_tree().current_scene.add_child(path)
-	path.visible = StartController.Instance.extras_visibility
+	path.visible = HudController.Instance.extras_visibility
 
 func _exit_tree() -> void:
 	# Ignore if the scene is changing
-	if StartController.Instance.scene_is_changing:
+	if HudController.Instance.scene_is_changing:
 		return
 	# Move path
 	get_tree().current_scene.remove_child(path)
-	StartController.Instance.last_positions_parent.add_child(path)
+	HudController.Instance.last_positions_parent.add_child(path)
 	
 func collide(other_collider : Area2D):
 	var other_object = other_collider.get_parent()
@@ -112,7 +112,7 @@ func win():
 	# BoidsController.Instance.running = false
 	# Return to level creator if that is the scene to return to
 	if LevelInstanceProps.level_number == 0:
-		StartController.Instance.leave_to_home.call_deferred()
+		HudController.Instance.leave_to_home.call_deferred()
 	else:
 		# Create the win screen
 		var win_screen_instance = win_screen.instantiate()
@@ -148,4 +148,4 @@ func lose(reason : String):
 	print("You lose")
 	print(reason)
 	BoidsController.Instance.running = false
-	StartController.Instance.reset.call_deferred()
+	HudController.Instance.reset.call_deferred()

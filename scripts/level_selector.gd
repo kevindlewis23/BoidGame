@@ -9,7 +9,7 @@ extends Node
 @export var quit_button : Button
 static var num_levels : int = 21
 
-static var level_loader : PackedScene = load("res://level_loader.tscn")
+static var level_loader : PackedScene = preload("res://level_loader.tscn")
 
 func _ready():
 	# Load the passed levels so far
@@ -51,24 +51,19 @@ func start_level():
 	
 static func start_level_from_number(level_number: int, tree : SceneTree) -> void:
 	# Get the level
-	var level_name = "res://Levels/level_%d.tscn" % (level_number)
+	var level_name = "res://levels/level_%d.json" % (level_number)
 	LevelInstanceProps.level_number = level_number
-	# Make sure the file exists
-	if ResourceLoader.exists(level_name):
-		LevelInstanceProps.scene_to_return_to = "res://level_select.tscn"
-		tree.change_scene_to_file(level_name)
-	else:
-		# Check if it exists as a .json file
-		var json_name = "res://Levels/level_%d.json" % (level_number)
-		if FileAccess.file_exists(json_name):
-			LevelInstanceProps.scene_to_return_to = "res://level_select.tscn"
-			LevelInstanceProps.level_file_path = json_name
-			# Start the level loader
-			tree.change_scene_to_packed(level_loader)
 
-		else:
-			push_error("Level file does not exist: %s" % level_name)
-			return
+	# Make sure it actually exists
+	if FileAccess.file_exists(level_name):
+		LevelInstanceProps.scene_to_return_to = "res://level_select.tscn"
+		LevelInstanceProps.level_file_path = level_name
+		# Start the level loader
+		tree.change_scene_to_packed(level_loader)
+
+	else:
+		push_error("Level file does not exist: %s" % level_name)
+		return
 	
 	
 func load_level():

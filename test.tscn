@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://isc2etryp5qr"]
+[gd_scene load_steps=3 format=3 uid="uid://isc2etryp5qr"]
 
 [ext_resource type="Script" uid="uid://ba1av5tgx7frh" path="res://scripts/custom_options.gd" id="1_37kl0"]
+[ext_resource type="PackedScene" uid="uid://c7o8fd37yaa5q" path="res://ui/level_hud.tscn" id="2_8uh7m"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -27,3 +28,9 @@ offset_bottom = 240.0
 offset_right = 40.0
 offset_bottom = 40.0
 auto_height = true
+
+[node name="LevelHud" parent="." instance=ExtResource("2_8uh7m")]
+offset_left = 9.0
+offset_top = 30.0
+offset_right = 9.0
+offset_bottom = 30.0
