@@ -72,6 +72,7 @@ func load_level():
 	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
 	file_dialog.filters = ["*.json"]
+	file_dialog.current_dir = Helpers.get_storage_directory("load")
 	add_child(file_dialog)
 	file_dialog.popup_centered()
 	file_dialog.file_selected.connect(load_file_from_path)
@@ -82,6 +83,7 @@ func load_file_from_path(path: String) -> void:
 		push_error("File does not exist: %s" % path)
 		return
 	
+	Helpers.add_storage_directory("load", path.get_base_dir())
 	# Set the level file path and scene to return to
 	LevelInstanceProps.level_file_path = path
 	LevelInstanceProps.scene_to_return_to = "res://level_select.tscn"

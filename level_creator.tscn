@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bcgr5tvlk38f2"]
+[gd_scene load_steps=10 format=3 uid="uid://bcgr5tvlk38f2"]
 
 [ext_resource type="Script" uid="uid://61h3jn06bqua" path="res://scripts/level_creator.gd" id="1_ac3t6"]
+[ext_resource type="PackedScene" uid="uid://coqnjrmac1lf8" path="res://ui/level_creator_hud.tscn" id="2_3gwyi"]
 [ext_resource type="Script" uid="uid://dng4l2202d5u3" path="res://scripts/create_item_button.gd" id="2_jelr6"]
 [ext_resource type="PackedScene" uid="uid://dth47xdgohkja" path="res://sprites/boid_sprite.tscn" id="2_p83yk"]
 [ext_resource type="PackedScene" uid="uid://cx7ofsplb5ohi" path="res://sprites/repeller_sprite.tscn" id="3_euxh4"]
@@ -9,10 +10,14 @@
 [ext_resource type="PackedScene" uid="uid://gnmquo1dt3ht" path="res://level_creator_assets/level_creator_repeller.tscn" id="5_fmw0n"]
 [ext_resource type="PackedScene" uid="uid://xkuj1xis7wmv" path="res://level_creator_assets/level_creator_star.tscn" id="7_sy2r1"]
 
-[node name="Level_Creator" type="Node2D" node_paths=PackedStringArray("add_options", "created_objects")]
+[node name="Level_Creator" type="Node2D" node_paths=PackedStringArray("add_options", "created_objects", "hud")]
 script = ExtResource("1_ac3t6")
 add_options = NodePath("Panel")
 created_objects = NodePath("created_objects_parent")
+hud = NodePath("LevelCreatorHud")
+
+[node name="LevelCreatorHud" parent="." node_paths=PackedStringArray("level_creator") instance=ExtResource("2_3gwyi")]
+level_creator = NodePath("..")
 
 [node name="created_objects_parent" type="Node2D" parent="."]
 

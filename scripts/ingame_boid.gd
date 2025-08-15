@@ -36,15 +36,15 @@ func _ready():
 							SCENE_BOTTOM - SCENE_TOP + 2 * lose_margin)
 	path = load("res://misc_objects/path.tscn").instantiate() as Path
 	get_tree().current_scene.add_child(path)
-	path.visible = HudController.Instance.extras_visibility
+	path.visible = LevelHudController.Instance.extras_visibility
 
 func _exit_tree() -> void:
 	# Ignore if the scene is changing
-	if HudController.Instance.scene_is_changing:
+	if LevelHudController.Instance.scene_is_changing:
 		return
 	# Move path
 	get_tree().current_scene.remove_child(path)
-	HudController.Instance.last_positions_parent.add_child(path)
+	LevelHudController.Instance.last_positions_parent.add_child(path)
 	
 func collide(other_collider : Area2D):
 	var other_object = other_collider.get_parent()
@@ -112,7 +112,7 @@ func win():
 	# BoidsController.Instance.running = false
 	# Return to level creator if that is the scene to return to
 	if LevelInstanceProps.level_number == 0:
-		HudController.Instance.leave_to_home.call_deferred()
+		LevelHudController.Instance.leave_to_home.call_deferred()
 	else:
 		# Create the win screen
 		var win_screen_instance = win_screen.instantiate()
@@ -120,7 +120,7 @@ func win():
 		# Add the level number to the list of passed levels
 		if not FileAccess.file_exists(Constants.passed_levels_file_path):
 			var file = FileAccess.open(Constants.passed_levels_file_path, FileAccess.WRITE)
-			file.store_line(JSON.stringify([LevelInstanceProps.level_number]))
+			file.store_string(JSON.stringify([LevelInstanceProps.level_number]))
 			file.close()
 		else:
 			var file = FileAccess.open(Constants.passed_levels_file_path, FileAccess.READ_WRITE)
@@ -137,7 +137,7 @@ func win():
 				if not level_has_been_passed:
 					passed_levels.append(LevelInstanceProps.level_number)
 					file.seek(0)
-					file.store_line(JSON.stringify(passed_levels))
+					file.store_string(JSON.stringify(passed_levels))
 			else:
 				push_error("Failed to parse passed levels file: %s" % json.get_error_message())
 			file.close()
@@ -148,4 +148,4 @@ func lose(reason : String):
 	print("You lose")
 	print(reason)
 	BoidsController.Instance.running = false
-	HudController.Instance.reset.call_deferred()
+	LevelHudController.Instance.reset.call_deferred()

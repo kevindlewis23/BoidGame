@@ -10,3 +10,4 @@ static var predator_player_boid_color = Color(Color.hex(0xff9900ff))
 static var level_creator_tmp_file_path = "user://level_creator_file_tmp.json"
 
 static var passed_levels_file_path = "user://passed_levels.json"
+static var storage_directories_file = "user://storage_directories.json"

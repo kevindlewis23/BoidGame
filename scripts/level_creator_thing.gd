@@ -65,7 +65,7 @@ func _ready() -> void:
 	moving_object_bounding_box.move_to(mobb_pos + moving_object_bounding_box.size / 2, bounding_box_aabb)
 	reposition_corners()
 
-	LevelCreator.instance.state_changed.emit.call_deferred()
+	LevelCreator.Instance.state_changed.emit.call_deferred()
 
 	moved.connect(control_box.set_values_to_current)
 
@@ -137,7 +137,7 @@ func _input( event ):
 		if not event.is_pressed():
 			# If the left mouse button is released, we stop resizing
 			if hovered_corner:
-				LevelCreator.instance.state_changed.emit()
+				LevelCreator.Instance.state_changed.emit()
 			hovered_corner = null
 			hovered_corner_index = -1
 			if not is_hovered and not is_dragging and not is_rotating:
@@ -146,7 +146,7 @@ func _input( event ):
 				add_control_box.emit()
 			# If we were dragging or rotating, we emit the state changed signal
 			if (is_dragging_has_actually_started and event.button_index == MOUSE_BUTTON_LEFT) or (is_rotating and event.button_index == MOUSE_BUTTON_RIGHT):
-				LevelCreator.instance.state_changed.emit()
+				LevelCreator.Instance.state_changed.emit()
 	super._input(event)
 
 

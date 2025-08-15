@@ -1,26 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7o8fd37yaa5q"]
+[gd_scene load_steps=4 format=3 uid="uid://coqnjrmac1lf8"]
 
-[ext_resource type="Script" uid="uid://bkdj7n4enkg3p" path="res://scripts/level_hud_controller.gd" id="1_jdufq"]
-[ext_resource type="FontFile" uid="uid://c30e0uk5lm80m" path="res://addons/fontawesome/fonts/fa-solid-900.woff2" id="2_v6q5q"]
-[ext_resource type="Script" uid="uid://dd457dwch1dt0" path="res://addons/fontawesome/FontAwesome.gd" id="3_fi0pf"]
+[ext_resource type="Script" uid="uid://d1bhqt85aogl0" path="res://scripts/level_creator_hud_controller.gd" id="1_hfece"]
+[ext_resource type="FontFile" uid="uid://c30e0uk5lm80m" path="res://addons/fontawesome/fonts/fa-solid-900.woff2" id="2_vxotg"]
+[ext_resource type="Script" uid="uid://dd457dwch1dt0" path="res://addons/fontawesome/FontAwesome.gd" id="3_erusq"]
 
-[node name="LevelHud" type="Control" node_paths=PackedStringArray("start_button", "reset_button", "increase_speed_button", "decrease_speed_button", "sim_speed_label", "hud_bar", "info_button", "leave_button", "level_name", "info_text", "info_close_button", "info_overlay")]
+[node name="LevelCreatorHud" type="Control" node_paths=PackedStringArray("test_button", "undo_button", "redo_button", "trash_button", "load_button", "save_button", "hud_bar", "info_button", "leave_button", "level_name", "info_text", "info_close_button", "info_overlay")]
 z_index = 5
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
-script = ExtResource("1_jdufq")
-start_button = NodePath("TopBar/Start_button")
-reset_button = NodePath("TopBar/ResetButton")
-increase_speed_button = NodePath("TopBar/SpeedControl/Fast")
-decrease_speed_button = NodePath("TopBar/SpeedControl/Slow")
-sim_speed_label = NodePath("TopBar/SpeedControl/Speed")
+script = ExtResource("1_hfece")
+test_button = NodePath("TopBar/TestButton")
+undo_button = NodePath("TopBar/UndoButton")
+redo_button = NodePath("TopBar/RedoButton")
+trash_button = NodePath("TopBar/TrashButton")
+load_button = NodePath("TopBar/LoadButton")
+save_button = NodePath("TopBar/SaveButton")
 hud_bar = NodePath("TopBar")
 info_button = NodePath("TopBar/Info_button")
 leave_button = NodePath("TopBar/Return_button")
-level_name = NodePath("TopBar/Label")
-info_text = NodePath("InfoOverlay/PanelContainer/VBoxContainer/MarginContainer/InfoTextLabel")
+level_name = NodePath("TopBar/LevelName")
+info_text = NodePath("InfoOverlay/PanelContainer/VBoxContainer/MarginContainer/InfoText")
 info_close_button = NodePath("InfoOverlay/PanelContainer/VBoxContainer/Panel/CloseButton")
 info_overlay = NodePath("InfoOverlay")
 
@@ -29,74 +30,24 @@ layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 90.0
 
-[node name="Label" type="Label" parent="TopBar"]
+[node name="LevelName" type="LineEdit" parent="TopBar"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -31.5
+offset_right = 175.0
+offset_bottom = 31.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 36
-text = "Untitled Level"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Start_button" type="Button" parent="TopBar"]
-layout_mode = 0
-offset_left = 1845.0
-offset_top = 15.0
-offset_right = 1905.0
-offset_bottom = 75.0
-tooltip_text = "Start (Space / Enter)"
-theme_override_font_sizes/font_size = 32
-
-[node name="FontAwesome" type="Label" parent="TopBar/Start_button"]
-auto_translate_mode = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-localize_numeral_system = false
-theme_override_fonts/font = ExtResource("2_v6q5q")
-theme_override_font_sizes/font_size = 24
-text = ""
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("3_fi0pf")
-icon_size = 24
-icon_name = "play"
-metadata/_custom_type_script = "uid://dd457dwch1dt0"
-
-[node name="ResetButton" type="Button" parent="TopBar"]
-visible = false
-layout_mode = 0
-offset_left = 1845.0
-offset_top = 15.0
-offset_right = 1905.0
-offset_bottom = 75.0
-tooltip_text = "Reset (R)"
-theme_override_font_sizes/font_size = 32
-
-[node name="FontAwesome" type="Label" parent="TopBar/ResetButton"]
-auto_translate_mode = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-localize_numeral_system = false
-theme_override_fonts/font = ExtResource("2_v6q5q")
-theme_override_font_sizes/font_size = 24
-text = ""
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("3_fi0pf")
-icon_size = 24
-icon_name = "stop"
-metadata/_custom_type_script = "uid://dd457dwch1dt0"
+placeholder_text = "Level Name"
+alignment = 1
+max_length = 50
+expand_to_text_length = true
 
 [node name="Return_button" type="Button" parent="TopBar"]
 layout_mode = 0
@@ -104,7 +55,7 @@ offset_left = 15.0
 offset_top = 15.0
 offset_right = 75.0
 offset_bottom = 75.0
-tooltip_text = "Return (Esc / Q)"
+tooltip_text = "Save and Exit (Esc / Q)"
 theme_override_font_sizes/font_size = 32
 
 [node name="FontAwesome" type="Label" parent="TopBar/Return_button"]
@@ -116,12 +67,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 localize_numeral_system = false
-theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_fonts/font = ExtResource("2_vxotg")
 theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("3_fi0pf")
+script = ExtResource("3_erusq")
 icon_size = 24
 icon_name = "arrow-left"
 metadata/_custom_type_script = "uid://dd457dwch1dt0"
@@ -144,46 +95,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 localize_numeral_system = false
-theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_fonts/font = ExtResource("2_vxotg")
 theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("3_fi0pf")
+script = ExtResource("3_erusq")
 icon_size = 24
 icon_name = "info"
 metadata/_custom_type_script = "uid://dd457dwch1dt0"
 
-[node name="SpeedControl" type="Control" parent="TopBar"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -320.0
-offset_right = -110.0
-offset_bottom = 90.0
-grow_horizontal = 0
-
-[node name="Speed" type="Label" parent="TopBar/SpeedControl"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 24
-text = "1.00x"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Slow" type="Button" parent="TopBar/SpeedControl"]
-layout_mode = 2
+[node name="UndoButton" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 165.0
 offset_top = 15.0
-offset_right = 60.0
+offset_right = 225.0
 offset_bottom = 75.0
-tooltip_text = "Slower (Ctrl/Cmd + Left)"
+tooltip_text = "Undo (Ctrl/Cmd + Z)"
+theme_override_font_sizes/font_size = 32
 
-[node name="FontAwesome" type="Label" parent="TopBar/SpeedControl/Slow"]
+[node name="FontAwesome" type="Label" parent="TopBar/UndoButton"]
 auto_translate_mode = 2
 layout_mode = 1
 anchors_preset = 15
@@ -192,31 +123,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 localize_numeral_system = false
-theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_fonts/font = ExtResource("2_vxotg")
 theme_override_font_sizes/font_size = 24
-text = ""
+text = ""
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("3_fi0pf")
+script = ExtResource("3_erusq")
 icon_size = 24
-icon_name = "backward"
+icon_name = "rotate-left"
 metadata/_custom_type_script = "uid://dd457dwch1dt0"
 
-[node name="Fast" type="Button" parent="TopBar/SpeedControl"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -30.0
-offset_bottom = 30.0
-grow_horizontal = 0
-grow_vertical = 2
-tooltip_text = "Faster (Ctrl/Cmd + Right)"
+[node name="RedoButton" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 15.0
+offset_right = 300.0
+offset_bottom = 75.0
+tooltip_text = "Redo (Ctrl/Cmd + Y)"
+theme_override_font_sizes/font_size = 32
 
-[node name="FontAwesome" type="Label" parent="TopBar/SpeedControl/Fast"]
+[node name="FontAwesome" type="Label" parent="TopBar/RedoButton"]
 auto_translate_mode = 2
 layout_mode = 1
 anchors_preset = 15
@@ -225,14 +151,126 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 localize_numeral_system = false
-theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_fonts/font = ExtResource("2_vxotg")
 theme_override_font_sizes/font_size = 24
-text = ""
+text = ""
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("3_fi0pf")
+script = ExtResource("3_erusq")
 icon_size = 24
-icon_name = "forward"
+icon_name = "rotate-right"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="TrashButton" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 1620.0
+offset_top = 15.0
+offset_right = 1680.0
+offset_bottom = 75.0
+tooltip_text = "Clear Level (Ctrl/Cmd + Shift + N)"
+theme_override_font_sizes/font_size = 32
+
+[node name="FontAwesome" type="Label" parent="TopBar/TrashButton"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_vxotg")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_erusq")
+icon_size = 24
+icon_name = "trash-can"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="LoadButton" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 1695.0
+offset_top = 15.0
+offset_right = 1755.0
+offset_bottom = 75.0
+tooltip_text = "Load Level (Ctrl/Cmd + L)"
+theme_override_font_sizes/font_size = 32
+
+[node name="FontAwesome" type="Label" parent="TopBar/LoadButton"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_vxotg")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_erusq")
+icon_size = 24
+icon_name = "file-import"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="SaveButton" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 1770.0
+offset_top = 15.0
+offset_right = 1830.0
+offset_bottom = 75.0
+tooltip_text = "Save to File (Ctrl/Cmd + S)"
+theme_override_font_sizes/font_size = 32
+
+[node name="FontAwesome" type="Label" parent="TopBar/SaveButton"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_vxotg")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_erusq")
+icon_size = 24
+icon_name = "download"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="TestButton" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 1845.0
+offset_top = 15.0
+offset_right = 1905.0
+offset_bottom = 75.0
+tooltip_text = "Test Level  (T)"
+theme_override_font_sizes/font_size = 32
+
+[node name="FontAwesome" type="Label" parent="TopBar/TestButton"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_vxotg")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_erusq")
+icon_size = 24
+icon_name = "vial"
 metadata/_custom_type_script = "uid://dd457dwch1dt0"
 
 [node name="InfoOverlay" type="Panel" parent="."]
@@ -286,12 +324,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 localize_numeral_system = false
-theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_fonts/font = ExtResource("2_vxotg")
 theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("3_fi0pf")
+script = ExtResource("3_erusq")
 icon_size = 24
 icon_name = "xmark"
 metadata/_custom_type_script = "uid://dd457dwch1dt0"
@@ -303,10 +341,12 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="InfoTextLabel" type="Label" parent="InfoOverlay/PanelContainer/VBoxContainer/MarginContainer"]
+[node name="InfoText" type="TextEdit" parent="InfoOverlay/PanelContainer/VBoxContainer/MarginContainer"]
+clip_contents = false
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 32
-text = "Good Luck!"
-autowrap_mode = 3
+placeholder_text = "Information or tips about the level"
+wrap_mode = 1
+scroll_fit_content_height = true

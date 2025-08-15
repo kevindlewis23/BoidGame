@@ -144,7 +144,7 @@ func set_boid_color(can_collect_stars : bool, is_predator : bool) -> void:
 
 func resize_box_from_val(from_right : bool, from_bottom : bool) -> void:
 	if not ignore_value_changes:
-		LevelCreator.instance.state_changed.emit.call_deferred()
+		LevelCreator.Instance.state_changed.emit.call_deferred()
 	connected_thing.resize_box(
 		box_left.value,
 		box_top.value,
@@ -162,14 +162,14 @@ func set_pos_from_box(_new_val) -> void:
 	var pos = Vector2(x_position.value, y_position.value)
 	object.move_to(pos, connected_thing.bounding_box_aabb)
 	if not ignore_value_changes:
-		LevelCreator.instance.state_changed.emit.call_deferred()
+		LevelCreator.Instance.state_changed.emit.call_deferred()
 	set_values_to_current()
 
 func set_rotation_from_box(new_val) -> void:
 	var rot = -new_val * PI / 180
 	object.rotate_to(rot, connected_thing.bounding_box_aabb)
 	if not ignore_value_changes:
-		LevelCreator.instance.state_changed.emit.call_deferred()
+		LevelCreator.Instance.state_changed.emit.call_deferred()
 	set_values_to_current()
 
 func set_values_to_current() -> void:
@@ -233,5 +233,5 @@ func _input(event: InputEvent) -> void:
 				remove_this()
 
 func remove_this():
-	connected_thing.tree_exited.connect(LevelCreator.instance.state_changed.emit)
+	connected_thing.tree_exited.connect(LevelCreator.Instance.state_changed.emit)
 	connected_thing.queue_free()

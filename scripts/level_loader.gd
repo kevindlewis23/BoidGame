@@ -27,7 +27,7 @@ func _ready() -> void:
 			var json = JSON.new()
 			var error = json.parse(json_data)
 			if error == OK:
-				load_level_from_array(json.data)
+				load_level_from_data(json.data)
 			else:
 				push_error("Failed to parse level: %s" % json.get_error_message())
 		else:
@@ -35,8 +35,20 @@ func _ready() -> void:
 	else:
 		push_error("Failed to open level file: %s" % level_file_path)
 
-func load_level_from_array(level_data: Array) -> void:
-	for item in level_data:
+func load_level_from_data(level_data: Dictionary) -> void:
+	# Load the level name
+	var level_name = level_data.get("level_name", "")
+	if level_name == "": level_name = "Untitled Level"
+	LevelHudController.Instance.level_name.text = level_name
+
+	# Load the level hint
+	var level_info = level_data.get("level_info", "")
+	if level_info == "": level_info = "Good Luck!"
+	LevelHudController.Instance.info_text.text = level_info
+
+	# Load the game objects
+	var game_objects = level_data.get("game_objects", [])
+	for item in game_objects:
 		var obj_type = int(item["object_type"])
 		if obj_type == ObjectType.STAR:
 			var star = OBJECT_SCENES[ObjectType.STAR].instantiate()
