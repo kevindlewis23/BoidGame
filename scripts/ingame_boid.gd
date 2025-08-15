@@ -12,7 +12,7 @@ extends Boid
 var path : Path
 
 # Static in case there are multiple boids that can collect stars
-static var star_count = 0
+static var stars = []
 var must_be_in_area : Rect2
 
 static var num_main_boids = 1
@@ -30,7 +30,7 @@ func _ready():
 	has_won = false
 	collider.area_entered.connect(collide)
 	
-	star_count = get_tree().get_nodes_in_group("stars").size()
+	stars = get_tree().get_nodes_in_group("stars")
 	must_be_in_area = Rect2(SCENE_LEFT -lose_margin, SCENE_TOP-lose_margin,
 							SCENE_RIGHT - SCENE_LEFT + 2 * lose_margin,
 							SCENE_BOTTOM - SCENE_TOP + 2 * lose_margin)
@@ -89,10 +89,11 @@ func calc_next_position_and_angle(delta: float) -> void:
 
 func collide_with_star(star : Node2D):
 	if is_main_boid:
-		star_count-=1
 		star.hide()
 		objects_being_deleted.append(star)
-		if star_count <= 0:
+		# I was keeping track of a count of the stars but there was a bug that I had once that I could never reproduce and couldn't explain so I'm doing this instead
+		# It was in a level with only one boid that could collect stars, so I don't really understand how it could've happened, but I won without collecting all stars
+		if stars.all(func (item): return not item.visible):
 			win()
 
 func collide_with_zapper(_zapper : Node2D):
