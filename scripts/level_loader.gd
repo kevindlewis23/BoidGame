@@ -3,6 +3,7 @@ extends Node2D
 
 @export var moving_objects_parent : Node2D
 @export var where_to_place_stars : Node2D
+@export var tooltip_show_time : float = 5
 
 const ObjectType = LevelCreatorThing.ObjectType
 
@@ -15,6 +16,8 @@ const OBJECT_SCENES = {
 const player_boid_scene = preload("res://game_objects/player_boid.tscn") as PackedScene
 const predator_boid_scene = preload("res://game_objects/evil_boid.tscn") as PackedScene
 const predator_player_boid_scene = preload("res://game_objects/evil_player_boid.tscn") as PackedScene
+const tooltip_scene = preload("res://ui/tooltip.tscn") as PackedScene
+
 
 func _ready() -> void:
 	var level_file_path = LevelInstanceProps.level_file_path
@@ -43,6 +46,17 @@ func load_level_from_data(level_data: Dictionary) -> void:
 
 	# Load the level hint
 	var level_info = level_data.get("level_info", "")
+	if level_info != "":
+		var tooltip = tooltip_scene.instantiate()
+		
+		add_child(tooltip)
+		tooltip.get_child(0).get_child(0).get_child(0).text = level_info
+		get_tree().create_timer(tooltip_show_time).timeout.connect(func () -> void:
+			if tooltip and tooltip.is_inside_tree():
+				tooltip.queue_free()
+		)
+
+
 	if level_info == "": level_info = "Good Luck!"
 	LevelHudController.Instance.info_text.text = level_info
 

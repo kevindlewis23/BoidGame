@@ -1,15 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dth47xdgohkja"]
-
-[ext_resource type="Texture2D" uid="uid://cvr37d2yhcacb" path="res://assets/boid2.png" id="1_55fdf"]
+[gd_scene format=3 uid="uid://dth47xdgohkja"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 antialiased = true
 polygon = PackedVector2Array(-24, -24, 30, 0, -24, 24, -10, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-texture_filter = 1
-scale = Vector2(4, 4)
-texture = ExtResource("1_55fdf")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://djwbfwlf3iq6c" path="res://scripts/win_screen.gd" id="1_s4v41"]
 
-[node name="WinScreen" type="Control" node_paths=PackedStringArray("return_button", "next_level_button")]
+[node name="WinScreen" type="Control" node_paths=PackedStringArray("return_button", "next_level_button", "admire_button")]
 z_index = 10
 layout_mode = 3
 anchors_preset = 15
@@ -13,6 +13,7 @@ grow_vertical = 2
 script = ExtResource("1_s4v41")
 return_button = NodePath("Panel/Button")
 next_level_button = NodePath("")
+admire_button = NodePath("Panel/Button3")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
@@ -33,9 +34,17 @@ horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 169.0
-offset_top = 176.0
-offset_right = 411.0
-offset_bottom = 258.0
+offset_left = 45.0
+offset_top = 210.0
+offset_right = 287.0
+offset_bottom = 292.0
 theme_override_font_sizes/font_size = 48
 text = "Return"
+
+[node name="Button3" type="Button" parent="Panel"]
+offset_left = 316.0
+offset_top = 211.0
+offset_right = 558.0
+offset_bottom = 293.0
+theme_override_font_sizes/font_size = 48
+text = "Admire"

@@ -103,18 +103,18 @@ text = "Load"
 
 [node name="Button4" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 174.0
-offset_top = 614.0
-offset_right = 475.0
-offset_bottom = 696.0
+offset_left = 38.0
+offset_top = 739.0
+offset_right = 618.0
+offset_bottom = 821.0
 theme_override_font_sizes/font_size = 48
-text = "Instructions"
+text = "Credits and Instructions"
 
 [node name="Button5" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 176.0
-offset_top = 711.0
-offset_right = 477.0
-offset_bottom = 793.0
+offset_left = 177.0
+offset_top = 624.0
+offset_right = 478.0
+offset_bottom = 706.0
 theme_override_font_sizes/font_size = 48
 text = "Quit"

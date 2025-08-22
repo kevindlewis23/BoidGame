@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://djwbfwlf3iq6c" path="res://scripts/win_screen.gd" id="1_vyg0g"]
 
-[node name="WinScreen" type="Control" node_paths=PackedStringArray("return_button", "next_level_button")]
+[node name="WinScreen" type="Control" node_paths=PackedStringArray("return_button", "next_level_button", "admire_button")]
 z_index = 10
 layout_mode = 3
 anchors_preset = 15
@@ -13,38 +13,48 @@ grow_vertical = 2
 script = ExtResource("1_vyg0g")
 return_button = NodePath("Panel/Button")
 next_level_button = NodePath("Panel/Button2")
+admire_button = NodePath("Panel/Button3")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 647.0
-offset_top = 315.0
-offset_right = 1236.0
-offset_bottom = 642.0
+offset_left = 570.0
+offset_top = 317.0
+offset_right = 1395.0
+offset_bottom = 611.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 53.0
-offset_right = 461.0
-offset_bottom = 136.0
+offset_left = 240.0
+offset_top = 46.0
+offset_right = 573.0
+offset_bottom = 129.0
 theme_override_font_sizes/normal_font_size = 48
 text = "You Win!"
 horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 44.0
-offset_top = 186.0
-offset_right = 286.0
-offset_bottom = 268.0
+offset_left = 23.0
+offset_top = 187.0
+offset_right = 265.0
+offset_bottom = 269.0
 theme_override_font_sizes/font_size = 48
 text = "Return"
 
+[node name="Button3" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 289.0
+offset_top = 186.0
+offset_right = 531.0
+offset_bottom = 268.0
+theme_override_font_sizes/font_size = 48
+text = "Admire"
+
 [node name="Button2" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 305.0
-offset_top = 186.0
-offset_right = 554.0
-offset_bottom = 268.0
+offset_left = 550.0
+offset_top = 187.0
+offset_right = 799.0
+offset_bottom = 269.0
 theme_override_font_sizes/font_size = 48
 text = "Next"

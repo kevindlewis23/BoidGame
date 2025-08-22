@@ -1,5 +1,9 @@
 # BoidGame
 
+# Tools Used
+[Godot](https://godotengine.org/license) for game engine  
+[Font Awesome](https://fontawesome.com) for icons with [Godot Font Awesome](https://github.com/LetterN/Godot-FontAwesome)  
+
 # How to play
   
 Click and drag to move the starting position of the boids (not always allowed)  
@@ -13,6 +17,8 @@ Press `q` or `ESCAPE` to leave
 Press `p` to show or hide paths and previous boid positions
 Press `i` to toggle showing extra information about the level  
 Press `Ctrl/Cmd + RIGHT/LEFT` arrows to control simulation speed
+Press `Ctrl/Cmd + z` to undo the last change  
+Press `Ctrl/Cmd + y` to redo the last change
 
 # Level creator controls
 Right click on empty space to create a new object. You can set the starting place as well as the bounding box for the object, which defines where the player is allowed to move the object.  
@@ -28,15 +34,10 @@ Press `Ctrl/Cmd + y` to redo the last change
 # Coding stuff
 This is made with Godot. It's my first time using Godot so please don't make fun of my code lol  
 
-# Tools Used
-[Godot](https://godotengine.org/) for game engine
-[Font Awesome](https://fontawesome.com) for icons
-[LMMS](https://lmms.io/) for sound design
-
 # Current To Do's
  - Add more levels (maybe)
  - Add sprites and make it all look better
- - Better instructions and explanations and stuff
  - Better level selector
  - Sound design
  - This game is almost deterministic, but technically depends on simulation speed. Boid movement is independent of simulation speed, but collisions are checked frame by frame, so collecting stars and stuff could depend on simulation speed.
+ - Mobile??
