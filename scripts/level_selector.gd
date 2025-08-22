@@ -7,7 +7,7 @@ extends Node
 @export var instructions_button : Button
 @export var option_select : CustomOptions
 @export var quit_button : Button
-static var num_levels : int = 21
+static var num_levels : int = 23
 
 static var level_loader : PackedScene = preload("res://level_loader.tscn")
 
@@ -86,10 +86,12 @@ func load_file_from_path(path: String) -> void:
 	Helpers.add_storage_directory("load", path.get_base_dir())
 	# Set the level file path and scene to return to
 	LevelInstanceProps.level_file_path = path
+	LevelInstanceProps.level_number = 0
 	LevelInstanceProps.scene_to_return_to = "res://level_select.tscn"
 	
 	# Start the level loader
-	get_tree().change_scene_to_packed(level_loader)
+	# For some reason I get an error when I don't call deferred here, not sure why
+	get_tree().change_scene_to_packed.call_deferred(level_loader)
 
 func load_passed_levels() -> Array:
 	if not FileAccess.file_exists(Constants.passed_levels_file_path):

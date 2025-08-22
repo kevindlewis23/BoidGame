@@ -15,12 +15,13 @@ var path : Path
 static var stars = []
 var must_be_in_area : Rect2
 
-static var num_main_boids = 1
+static var star_collecting_boids = []
 var is_dead : bool = false
 
 static var objects_being_deleted : Array = []
 
 static var win_screen : PackedScene = load("res://ui/win_screen.tscn")
+static var win_screen_from_load : PackedScene = load("res://ui/win_screen_from_load.tscn")
 
 static var has_won : bool = false
 
@@ -36,7 +37,7 @@ func _ready():
 							SCENE_BOTTOM - SCENE_TOP + 2 * lose_margin)
 	path = load("res://misc_objects/path.tscn").instantiate() as Path
 	get_tree().current_scene.add_child(path)
-	path.visible = LevelHudController.Instance.extras_visibility
+	path.visible = LevelHudController.paths_visibility
 
 func _exit_tree() -> void:
 	# Ignore if the scene is changing
@@ -64,13 +65,6 @@ func _physics_process(_delta : float):
 	# Lose if you are too far out of the bounds
 	if is_dead or has_won:
 		return
-	if is_main_boid and not must_be_in_area.has_point(global_position):
-		is_dead = true
-		num_main_boids -= 1
-		if num_main_boids <= 0:
-			lose("You swam out of the map!!")
-		else:
-			remove_this()
 
 func _draw() -> void:
 	if is_main_boid:
@@ -81,6 +75,9 @@ func remove_this():
 	queue_free()
 	objects_being_deleted.append(self)
 	
+
+func is_out_of_bounds() -> bool:
+	return not must_be_in_area.has_point(global_position)
 
 # Overridden from Boid
 func calc_next_position_and_angle(delta: float) -> void:
@@ -102,18 +99,19 @@ func collide_with_zapper(_zapper : Node2D):
 func collide_with_predator(_predator : Node2D):
 	is_dead = true
 	remove_this()
-	if is_main_boid:
-		num_main_boids -= 1
-		if num_main_boids <= 0:
-			lose("You got eaten!")
 
 func win():
 	print("You win!!!!!!!")
+	IngameBoid.star_collecting_boids = []
 	has_won = true
 	# BoidsController.Instance.running = false
 	# Return to level creator if that is the scene to return to
-	if LevelInstanceProps.level_number == 0:
+	if LevelInstanceProps.scene_to_return_to == "res://level_creator.tscn":
 		LevelHudController.Instance.leave_to_home.call_deferred()
+	# Level loaded from the load button in the level selector
+	elif LevelInstanceProps.level_number == 0:
+		var win_screen_instance = win_screen_from_load.instantiate()
+		get_tree().current_scene.add_child(win_screen_instance)
 	else:
 		# Create the win screen
 		var win_screen_instance = win_screen.instantiate()
@@ -143,10 +141,11 @@ func win():
 				push_error("Failed to parse passed levels file: %s" % json.get_error_message())
 			file.close()
 
-func lose(reason : String):
+static func lose(_reason : String):
 	if has_won:
 		return
+	IngameBoid.star_collecting_boids = []
 	print("You lose")
-	print(reason)
+	# print(reason)
 	BoidsController.Instance.running = false
 	LevelHudController.Instance.reset.call_deferred()

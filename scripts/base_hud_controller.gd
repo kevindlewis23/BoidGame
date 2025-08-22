@@ -4,6 +4,8 @@ extends Control
 
 @export var hud_bar : Control
 @export var info_button : Button
+@export var grid_toggle_button : Button
+@export var grid : Node
 
 @export var leave_button : Button
 
@@ -12,10 +14,6 @@ extends Control
 @export var info_close_button : Button
 @export var info_overlay : Control
 
-
-
-# Static so it stores over multiple levels
-static var extras_visibility : bool = true
 
 var scene_is_changing : bool = false
 
@@ -37,6 +35,7 @@ func _ready():
 	leave_button.pressed.connect(leave_to_home)
 	info_close_button.pressed.connect(close_this)
 	info_button.pressed.connect(toggle_info)
+	grid_toggle_button.toggled.connect(func(toggled_on): grid.visible = toggled_on)
 	# Allow the hud bar to be hidden after a couple seconds
 	force_show_hud_bar_for_a_bit()
 	
@@ -102,9 +101,12 @@ func _unhandled_input(event):
 			close_this()
 		elif event.keycode == KEY_I:
 			toggle_info()
+		elif event.keycode == KEY_G:
+			grid_toggle_button.button_pressed = not grid_toggle_button.button_pressed
 
 
 func leave_to_home():
 	scene_is_changing = true
+	IngameBoid.star_collecting_boids = []
 	set_deferred("scene_is_changing", false)
 	get_tree().change_scene_to_file(LevelInstanceProps.scene_to_return_to)

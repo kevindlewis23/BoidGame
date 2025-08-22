@@ -2,6 +2,8 @@ class_name Constants
 static var WIDTH = 1920
 static var HEIGHT = 1080 
 
+static var huge_box = Rect2(-WIDTH, -HEIGHT, 2 * WIDTH, 2 * HEIGHT)
+
 static var global_aabb = Rect2(0, 0, WIDTH, HEIGHT)
 
 static var player_boid_color = Color(Color.hex(0xabf3feff))

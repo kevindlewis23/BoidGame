@@ -8,9 +8,9 @@ Press start to start the simulation.  You can also press `SPACE` or `ENTER`
 Try to collect all the stars!
 
 ## Other controls
-Press `r` to reset while the simulation is running  
+Press `SPACE` to stop while the simulation is running  
 Press `q` or `ESCAPE` to leave  
-Press `e` to show or hide extras (boid paths and previously set positions)  
+Press `p` to show or hide paths and previous boid positions
 Press `i` to toggle showing extra information about the level  
 Press `Ctrl/Cmd + RIGHT/LEFT` arrows to control simulation speed
 

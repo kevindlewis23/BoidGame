@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://t4fl1g3wk0up"]
+
+[ext_resource type="FontFile" uid="uid://c30e0uk5lm80m" path="res://addons/fontawesome/fonts/fa-solid-900.woff2" id="1_uwnp0"]
+[ext_resource type="Script" uid="uid://dd457dwch1dt0" path="res://addons/fontawesome/FontAwesome.gd" id="2_jstlb"]
+
+[node name="LockIcon" type="Node2D"]
+
+[node name="FontAwesome" type="Label" parent="."]
+auto_translate_mode = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_colors/font_color = Color(0.301961, 0.301961, 0.301961, 1)
+theme_override_fonts/font = ExtResource("1_uwnp0")
+theme_override_font_sizes/font_size = 8
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_jstlb")
+icon_size = 8
+icon_name = "circle"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"

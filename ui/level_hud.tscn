@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://c30e0uk5lm80m" path="res://addons/fontawesome/fonts/fa-solid-900.woff2" id="2_v6q5q"]
 [ext_resource type="Script" uid="uid://dd457dwch1dt0" path="res://addons/fontawesome/FontAwesome.gd" id="3_fi0pf"]
 
-[node name="LevelHud" type="Control" node_paths=PackedStringArray("start_button", "reset_button", "increase_speed_button", "decrease_speed_button", "sim_speed_label", "hud_bar", "info_button", "leave_button", "level_name", "info_text", "info_close_button", "info_overlay")]
+[node name="LevelHud" type="Control" node_paths=PackedStringArray("start_button", "reset_button", "path_toggle_button", "undo_button", "redo_button", "increase_speed_button", "decrease_speed_button", "sim_speed_label", "hud_bar", "info_button", "grid_toggle_button", "leave_button", "level_name", "info_text", "info_close_button", "info_overlay")]
 z_index = 5
 layout_mode = 3
 anchors_preset = 0
@@ -13,11 +13,15 @@ offset_bottom = 1080.0
 script = ExtResource("1_jdufq")
 start_button = NodePath("TopBar/Start_button")
 reset_button = NodePath("TopBar/ResetButton")
+path_toggle_button = NodePath("TopBar/Extras_button")
+undo_button = NodePath("TopBar/UndoButton")
+redo_button = NodePath("TopBar/RedoButton")
 increase_speed_button = NodePath("TopBar/SpeedControl/Fast")
 decrease_speed_button = NodePath("TopBar/SpeedControl/Slow")
 sim_speed_label = NodePath("TopBar/SpeedControl/Speed")
 hud_bar = NodePath("TopBar")
 info_button = NodePath("TopBar/Info_button")
+grid_toggle_button = NodePath("TopBar/Grid_button")
 leave_button = NodePath("TopBar/Return_button")
 level_name = NodePath("TopBar/Label")
 info_text = NodePath("InfoOverlay/PanelContainer/VBoxContainer/MarginContainer/InfoTextLabel")
@@ -40,63 +44,6 @@ theme_override_font_sizes/font_size = 36
 text = "Untitled Level"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Start_button" type="Button" parent="TopBar"]
-layout_mode = 0
-offset_left = 1845.0
-offset_top = 15.0
-offset_right = 1905.0
-offset_bottom = 75.0
-tooltip_text = "Start (Space / Enter)"
-theme_override_font_sizes/font_size = 32
-
-[node name="FontAwesome" type="Label" parent="TopBar/Start_button"]
-auto_translate_mode = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-localize_numeral_system = false
-theme_override_fonts/font = ExtResource("2_v6q5q")
-theme_override_font_sizes/font_size = 24
-text = ""
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("3_fi0pf")
-icon_size = 24
-icon_name = "play"
-metadata/_custom_type_script = "uid://dd457dwch1dt0"
-
-[node name="ResetButton" type="Button" parent="TopBar"]
-visible = false
-layout_mode = 0
-offset_left = 1845.0
-offset_top = 15.0
-offset_right = 1905.0
-offset_bottom = 75.0
-tooltip_text = "Reset (R)"
-theme_override_font_sizes/font_size = 32
-
-[node name="FontAwesome" type="Label" parent="TopBar/ResetButton"]
-auto_translate_mode = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-localize_numeral_system = false
-theme_override_fonts/font = ExtResource("2_v6q5q")
-theme_override_font_sizes/font_size = 24
-text = ""
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("3_fi0pf")
-icon_size = 24
-icon_name = "stop"
-metadata/_custom_type_script = "uid://dd457dwch1dt0"
 
 [node name="Return_button" type="Button" parent="TopBar"]
 layout_mode = 0
@@ -152,6 +99,66 @@ vertical_alignment = 1
 script = ExtResource("3_fi0pf")
 icon_size = 24
 icon_name = "info"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="Grid_button" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 15.0
+offset_right = 375.0
+offset_bottom = 75.0
+tooltip_text = "Toggle grid (g)"
+theme_override_font_sizes/font_size = 32
+toggle_mode = true
+button_pressed = true
+
+[node name="FontAwesome" type="Label" parent="TopBar/Grid_button"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_fi0pf")
+icon_size = 24
+icon_name = "border-all"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="Extras_button" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 15.0
+offset_right = 450.0
+offset_bottom = 75.0
+tooltip_text = "Toggle paths (p)"
+theme_override_font_sizes/font_size = 32
+toggle_mode = true
+button_pressed = true
+
+[node name="FontAwesome" type="Label" parent="TopBar/Extras_button"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_fi0pf")
+icon_size = 24
+icon_name = "wave-square"
 metadata/_custom_type_script = "uid://dd457dwch1dt0"
 
 [node name="SpeedControl" type="Control" parent="TopBar"]
@@ -233,6 +240,117 @@ vertical_alignment = 1
 script = ExtResource("3_fi0pf")
 icon_size = 24
 icon_name = "forward"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="Start_button" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 1845.0
+offset_top = 15.0
+offset_right = 1905.0
+offset_bottom = 75.0
+tooltip_text = "Start (Space / Enter)"
+theme_override_font_sizes/font_size = 32
+
+[node name="FontAwesome" type="Label" parent="TopBar/Start_button"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_fi0pf")
+icon_size = 24
+icon_name = "play"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="ResetButton" type="Button" parent="TopBar"]
+visible = false
+layout_mode = 0
+offset_left = 1845.0
+offset_top = 15.0
+offset_right = 1905.0
+offset_bottom = 75.0
+tooltip_text = "Reset (Space)"
+theme_override_font_sizes/font_size = 32
+
+[node name="FontAwesome" type="Label" parent="TopBar/ResetButton"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_fi0pf")
+icon_size = 24
+icon_name = "stop"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="UndoButton" type="Button" parent="TopBar"]
+offset_left = 165.0
+offset_top = 15.0
+offset_right = 225.0
+offset_bottom = 75.0
+tooltip_text = "Undo (Ctrl/Cmd + Z)"
+theme_override_font_sizes/font_size = 32
+
+[node name="FontAwesome" type="Label" parent="TopBar/UndoButton"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_fi0pf")
+icon_size = 24
+icon_name = "rotate-left"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="RedoButton" type="Button" parent="TopBar"]
+offset_left = 240.0
+offset_top = 15.0
+offset_right = 300.0
+offset_bottom = 75.0
+tooltip_text = "Redo (Ctrl/Cmd + Y)"
+theme_override_font_sizes/font_size = 32
+
+[node name="FontAwesome" type="Label" parent="TopBar/RedoButton"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_v6q5q")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_fi0pf")
+icon_size = 24
+icon_name = "rotate-right"
 metadata/_custom_type_script = "uid://dd457dwch1dt0"
 
 [node name="InfoOverlay" type="Panel" parent="."]

@@ -57,6 +57,10 @@ func physics_tick(delta : float) -> void:
 		boid.calc_velocity(delta, boids, obstacles_and_predators)
 	for boid in boids_and_predators:
 		boid.calc_next_position_and_angle(delta)
+	if (LevelHudController.Instance and # There is currently a HUD, meaning we're in the right scene
+		IngameBoid.star_collecting_boids.size() > 0 and # There are star collecting boids
+		IngameBoid.star_collecting_boids.all(func(boid): return not boid or boid.is_dead or boid.is_out_of_bounds())): # They're all dead or out of bounds
+			IngameBoid.lose("All star collecting boids are dead or out of bounds")
 
 func lerp_all_boids(lerp_number: int):
 	for boid in boids_and_predators:

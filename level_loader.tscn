@@ -1,17 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7se7o5hg24gc"]
+[gd_scene load_steps=5 format=3 uid="uid://c7se7o5hg24gc"]
 
 [ext_resource type="Script" uid="uid://dw2duthb6djv0" path="res://scripts/level_loader.gd" id="1_ox13j"]
 [ext_resource type="PackedScene" uid="uid://c7o8fd37yaa5q" path="res://ui/level_hud.tscn" id="2_ox13j"]
 [ext_resource type="Script" uid="uid://cbr8ffbxsfbit" path="res://scripts/boids_controller.gd" id="3_nfi1l"]
+[ext_resource type="PackedScene" uid="uid://berggj4ics35y" path="res://ui/grid.tscn" id="4_73jjw"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("moving_objects_parent", "where_to_place_stars")]
 script = ExtResource("1_ox13j")
 moving_objects_parent = NodePath("Moving_objects")
 where_to_place_stars = NodePath(".")
 
-[node name="LevelHud" parent="." node_paths=PackedStringArray("moving_objects_parent", "last_positions_parent") instance=ExtResource("2_ox13j")]
+[node name="Grid" parent="." instance=ExtResource("4_73jjw")]
+
+[node name="LevelHud" parent="." node_paths=PackedStringArray("moving_objects_parent", "last_positions_parent", "grid") instance=ExtResource("2_ox13j")]
 moving_objects_parent = NodePath("../Moving_objects")
 last_positions_parent = NodePath("../Last_positions")
+grid = NodePath("../Grid")
 
 [node name="Last_positions" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0.2)

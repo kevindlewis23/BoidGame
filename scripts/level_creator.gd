@@ -10,8 +10,7 @@ var pause_state_changed : bool = true
 @export var hud : LevelCreatorHudController
 
 # Used for ctrl z and ctrl y functionality
-var state_list : Array = []
-var current_state_index : int = 0
+var state_list : UndoRedoThing = UndoRedoThing.new()
 
 
 static var right_click_captured : bool = false
@@ -37,7 +36,7 @@ func _ready():
 	else:
 		lvl = load_level("res://level_creator_assets/default_level.json")
 
-	state_list.append(lvl)
+	state_list.add_state(lvl)
 	
 	
 # Load a level into the game and return the state
@@ -105,20 +104,20 @@ func save_and_quit():
 	get_tree().change_scene_to_file("res://level_select.tscn")
 
 func undo():
-	if current_state_index > 0:
-		current_state_index -= 1
-		change_state_to_new_index()
+	var new_state = state_list.undo()
+	if new_state:
+		change_state_to_new(new_state)
 		
 
 func redo():
-	if current_state_index < state_list.size() - 1:
-		current_state_index += 1
-		change_state_to_new_index()
+	var new_state = state_list.redo()
+	if new_state:
+		change_state_to_new(new_state)
 
-func change_state_to_new_index():
+func change_state_to_new(state):
 	var cur_level_name = hud.level_name.text
 	var cur_info_text = hud.info_text.text
-	load_state(state_list[current_state_index])
+	load_state(state)
 	# If something changed, show it
 	if cur_info_text != hud.info_text.text:
 		if not hud.info_overlay.visible:
@@ -196,12 +195,8 @@ func load_state(state: Dictionary) -> void:
 	set_deferred("pause_state_changed", false)
 
 func _on_state_changed():
-	if pause_state_changed:
-		return
-	if current_state_index < state_list.size() - 1:
-		state_list = state_list.slice(0, current_state_index + 1)
-	current_state_index += 1
-	state_list.append(save_state())
+	if not pause_state_changed:
+		state_list.add_state(save_state())
 
 
 func save_state_to_file() -> void:

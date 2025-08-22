@@ -190,11 +190,10 @@ static func load_state(state: Dictionary) -> LevelCreatorThing:
 
 			
 		# Set location and rotation.  Make sure position gets set even if it seems impossible
-		var huge_box = Rect2(-Constants.WIDTH, -Constants.HEIGHT, 2 * Constants.WIDTH, 2 * Constants.HEIGHT)
-		new_object.moving_object_bounding_box.move_to(Vector2(state["object"]["x"], state["object"]["y"]), huge_box)
+		new_object.moving_object_bounding_box.move_to(Vector2(state["object"]["x"], state["object"]["y"]), Constants.huge_box)
 		if new_object.object_type == ObjectType.BOID:
 			var target_rotation = -state["object"]["rotation"] * PI / 180.0
-			new_object.moving_object_bounding_box.rotate_to(target_rotation, huge_box)
+			new_object.moving_object_bounding_box.rotate_to(target_rotation, Constants.huge_box)
 			new_object.control_box.can_rotate_checkbox.button_pressed = state["object"]["can_rotate"]
 			new_object.control_box.can_collect_stars_box.button_pressed = state["object"]["can_collect_stars"]
 			# Supporting levels from before the predator boids were added

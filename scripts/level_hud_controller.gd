@@ -2,6 +2,8 @@
 class_name LevelHudController
 extends BaseHudController
 
+signal state_changed
+
 static var Instance : LevelHudController
 
 
@@ -9,12 +11,20 @@ static var Instance : LevelHudController
 @export var last_positions_parent : Control
 @export var start_button : Button
 @export var reset_button : Button
+@export var path_toggle_button : Button
+@export var undo_button : Button
+@export var redo_button : Button
 
 @export var increase_speed_button : Button
 @export var decrease_speed_button : Button
 @export var sim_speed_label : Label
 
 var path_scene : PackedScene = load("res://misc_objects/path.tscn")
+
+# Static so it stores over multiple levels
+static var paths_visibility : bool = true
+
+var state_list = UndoRedoThing.new()
 
 func _ready():
 	super._ready()
@@ -23,7 +33,12 @@ func _ready():
 	reset_button.pressed.connect(reset)
 	increase_speed_button.pressed.connect(increase_speed)
 	decrease_speed_button.pressed.connect(decrease_speed)
-
+	path_toggle_button.toggled.connect(func(toggled_on): toggle_paths(toggled_on))
+	undo_button.pressed.connect(undo)
+	redo_button.pressed.connect(redo)
+	state_changed.connect(_on_state_changed)
+	# Save the starting state after the level loader finishes loading
+	(func (): state_list.add_state(save_state())).call_deferred()
 
 func _unhandled_input(event: InputEvent) -> void:
 	super._unhandled_input(event)
@@ -31,24 +46,44 @@ func _unhandled_input(event: InputEvent) -> void:
 		if ((event.keycode == KEY_SPACE or event.keycode == KEY_ENTER) 
 				and not BoidsController.Instance.running):
 				start()
-		elif event.keycode == KEY_R:
+		elif event.keycode == KEY_SPACE and BoidsController.Instance.running:
 			reset()
-		elif event.keycode == KEY_E:
-			# Toggle the visibility of the paths
-			extras_visibility = not extras_visibility
-			for path in get_tree().get_nodes_in_group("paths"):
-				path.visible = extras_visibility
-			# Maybe show/hide the last positions parent (assuming we are not currently running the simulation)
-			if moving_objects_parent.visible:
-				last_positions_parent.visible = extras_visibility
+		elif event.keycode == KEY_P:
+			path_toggle_button.button_pressed = not path_toggle_button.button_pressed
 		# Simulation speed stuff
 		elif event.is_command_or_control_pressed() and event.keycode == KEY_RIGHT:
 			increase_speed()
 		elif event.is_command_or_control_pressed() and event.keycode == KEY_LEFT:
 			decrease_speed()
+		elif event.is_command_or_control_pressed() and event.keycode == KEY_Z:
+			undo()
+		elif event.is_command_or_control_pressed() and event.keycode == KEY_Y:
+			redo()
+
+func undo():
+	var new_state = state_list.undo()
+	if new_state:
+		load_state(new_state)
+
+func redo():
+	var new_state = state_list.redo()
+	if new_state:
+		load_state(new_state)
+
+func _on_state_changed():
+	state_list.add_state(save_state())
+
+func toggle_paths(paths_on):
+	# Toggle the visibility of the paths
+	paths_visibility = paths_on
+	for path in get_tree().get_nodes_in_group("paths"):
+		path.visible = paths_visibility
+	# Maybe show/hide the last positions parent (assuming we are not currently running the simulation)
+	if moving_objects_parent.visible:
+		last_positions_parent.visible = paths_visibility
 
 func start():
-	IngameBoid.num_main_boids = 0
+	IngameBoid.star_collecting_boids = []
 	# Fist, find all movable object
 	var movable_things = get_tree().get_nodes_in_group("movable_things")
 	# Start them all
@@ -71,7 +106,7 @@ func start():
 		new_obj.global_transform = g_transform
 		BoidsController.Instance.add_child(new_obj)
 		if new_obj is IngameBoid and new_obj.is_main_boid:
-			IngameBoid.num_main_boids += 1
+			IngameBoid.star_collecting_boids.append(new_obj)
 	moving_objects_parent.hide()
 	last_positions_parent.hide()
 	start_button.hide()
@@ -102,6 +137,28 @@ func reset():
 		star.show()
 	show()
 	moving_objects_parent.show()
-	last_positions_parent.visible = extras_visibility
+	last_positions_parent.visible = paths_visibility
 	reset_button.hide()
 	start_button.show()
+
+func save_state() -> Array:
+	var positions = []
+	for object in moving_objects_parent.get_children():
+		if object is MovableThing:
+			var moving_object = object.moving_object_bounding_box
+			positions.append([moving_object.get_global_center(),  moving_object.get_object_rotation()])
+	return positions
+
+
+func load_state(object_positions):
+	var i = 0
+	for object in moving_objects_parent.get_children():
+		if object is MovableThing:
+			var moving_object = object.moving_object_bounding_box
+			if i < object_positions.size():
+				var pos = object_positions[i][0]
+				var rot = object_positions[i][1]
+				moving_object.move_to(pos, Constants.huge_box)
+				moving_object.rotate_to(rot, Constants.huge_box)
+			i += 1
+

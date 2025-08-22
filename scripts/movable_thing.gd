@@ -34,6 +34,8 @@ var is_dragging_has_actually_started : bool = false
 var is_rotating : bool = false
 var look_at_segment : Line2D = null
 
+var lock_icon_scene = preload("res://sprites/lock_icon.tscn")
+
 func _ready() -> void:
 	viewport = get_viewport()
 	bounding_box_aabb = get_rect_bounds(bounding_box)
@@ -47,6 +49,12 @@ func _ready() -> void:
 		if not self.is_in_group("movable_things_that_definitely_dont_rotate"):
 			help_text += ", ✅ rotate" if can_rotate else ", ❌ rotate"
 		moving_object_bounding_box.tooltip_text = help_text
+	
+	if not can_move and not can_rotate:
+		var lock_icon = lock_icon_scene.instantiate()
+		moving_object_bounding_box.add_child(lock_icon)
+		lock_icon.global_position = moving_object_bounding_box.get_global_center()
+		
 
 func get_rect_bounds(box : Polygon2D):
 	var aabb = Rect2(box.polygon[0], Vector2.ZERO)
@@ -77,6 +85,8 @@ func _input( event ):
 			is_rotating = true
 			LevelCreator.right_click_captured = true
 		elif event.button_index == 2 and not event.is_pressed() and can_rotate:
+			if is_rotating and not is_level_creator_thing:
+				LevelHudController.Instance.state_changed.emit()
 			is_rotating = false
 			if look_at_segment:
 				remove_child(look_at_segment)
@@ -96,8 +106,11 @@ func start_dragging():
 		)
 
 func stop_dragging():
+	if is_dragging_has_actually_started and not is_level_creator_thing:
+		LevelHudController.Instance.state_changed.emit()
 	is_dragging = false
 	is_dragging_has_actually_started = false
+	
 
 func _process(_delta):
 	if is_dragging and is_dragging_has_actually_started:

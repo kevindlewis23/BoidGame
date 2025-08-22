@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5gh4n8dmui08"]
+[gd_scene load_steps=2 format=3 uid="uid://cgw84oem5dlgd"]
 
-[ext_resource type="Script" uid="uid://djwbfwlf3iq6c" path="res://scripts/win_screen.gd" id="1_vyg0g"]
+[ext_resource type="Script" uid="uid://djwbfwlf3iq6c" path="res://scripts/win_screen.gd" id="1_s4v41"]
 
 [node name="WinScreen" type="Control" node_paths=PackedStringArray("return_button", "next_level_button")]
 z_index = 10
@@ -10,9 +10,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_vyg0g")
+script = ExtResource("1_s4v41")
 return_button = NodePath("Panel/Button")
-next_level_button = NodePath("Panel/Button2")
+next_level_button = NodePath("")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
@@ -33,18 +33,9 @@ horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 44.0
-offset_top = 186.0
-offset_right = 286.0
-offset_bottom = 268.0
+offset_left = 169.0
+offset_top = 176.0
+offset_right = 411.0
+offset_bottom = 258.0
 theme_override_font_sizes/font_size = 48
 text = "Return"
-
-[node name="Button2" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 305.0
-offset_top = 186.0
-offset_right = 554.0
-offset_bottom = 268.0
-theme_override_font_sizes/font_size = 48
-text = "Next"

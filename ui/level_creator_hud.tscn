@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://c30e0uk5lm80m" path="res://addons/fontawesome/fonts/fa-solid-900.woff2" id="2_vxotg"]
 [ext_resource type="Script" uid="uid://dd457dwch1dt0" path="res://addons/fontawesome/FontAwesome.gd" id="3_erusq"]
 
-[node name="LevelCreatorHud" type="Control" node_paths=PackedStringArray("test_button", "undo_button", "redo_button", "trash_button", "load_button", "save_button", "hud_bar", "info_button", "leave_button", "level_name", "info_text", "info_close_button", "info_overlay")]
+[node name="LevelCreatorHud" type="Control" node_paths=PackedStringArray("test_button", "undo_button", "redo_button", "trash_button", "load_button", "save_button", "hud_bar", "info_button", "grid_toggle_button", "leave_button", "level_name", "info_text", "info_close_button", "info_overlay")]
 z_index = 5
 layout_mode = 3
 anchors_preset = 0
@@ -19,6 +19,7 @@ load_button = NodePath("TopBar/LoadButton")
 save_button = NodePath("TopBar/SaveButton")
 hud_bar = NodePath("TopBar")
 info_button = NodePath("TopBar/Info_button")
+grid_toggle_button = NodePath("TopBar/Grid_button")
 leave_button = NodePath("TopBar/Return_button")
 level_name = NodePath("TopBar/LevelName")
 info_text = NodePath("InfoOverlay/PanelContainer/VBoxContainer/MarginContainer/InfoText")
@@ -159,6 +160,35 @@ vertical_alignment = 1
 script = ExtResource("3_erusq")
 icon_size = 24
 icon_name = "rotate-right"
+metadata/_custom_type_script = "uid://dd457dwch1dt0"
+
+[node name="Grid_button" type="Button" parent="TopBar"]
+offset_left = 315.0
+offset_top = 15.0
+offset_right = 375.0
+offset_bottom = 75.0
+tooltip_text = "Toggle grid (g)"
+theme_override_font_sizes/font_size = 32
+toggle_mode = true
+button_pressed = true
+
+[node name="FontAwesome" type="Label" parent="TopBar/Grid_button"]
+auto_translate_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("2_vxotg")
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_erusq")
+icon_size = 24
+icon_name = "border-all"
 metadata/_custom_type_script = "uid://dd457dwch1dt0"
 
 [node name="TrashButton" type="Button" parent="TopBar"]

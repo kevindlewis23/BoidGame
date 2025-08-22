@@ -73,10 +73,9 @@ func load_level_from_data(level_data: Dictionary) -> void:
 			
 
 			# Set location and rotation.  Make sure position gets set even if it seems impossible
-			var huge_box = Rect2(-Constants.WIDTH, -Constants.HEIGHT, 2 * Constants.WIDTH, 2 * Constants.HEIGHT)
-			movable_object.moving_object_bounding_box.move_to(Vector2(item["object"]["x"], item["object"]["y"]), huge_box)
+			movable_object.moving_object_bounding_box.move_to(Vector2(item["object"]["x"], item["object"]["y"]), Constants.huge_box)
 			movable_object.moving_object_bounding_box.rotate_to(
-				-item["object"]["rotation"] * PI / 180.0, huge_box)
+				-item["object"]["rotation"] * PI / 180.0, Constants.huge_box)
 
 
 			movable_object.can_move = item["object"].get("can_move", false)
